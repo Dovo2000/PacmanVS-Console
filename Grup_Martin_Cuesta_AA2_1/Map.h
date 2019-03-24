@@ -1,19 +1,22 @@
 #pragma once
 #include <iostream>
 #include <Windows.h>
+#include <string>
 
-namespace Map {
+namespace Table {
 
 	struct Map
 	{
-		const int ROWS_BY_DEFAULT = 21;
-		const int COLUMNS_BY_DEFAULT = 19;
-		int rows;
-		int columns;
-		char** data;
 
 		Map();
-		Map(int rows, int columns);
+		int rows;
+		int columns;
+
+		const int ROWS_BY_DEFAULT = rows;
+		const int COLUMNS_BY_DEFAULT = columns;
+		char** data;
+
+	
 
 		bool correctMove();
 
