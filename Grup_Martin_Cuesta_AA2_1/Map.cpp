@@ -57,19 +57,40 @@ char aux;
 
 void Map::printMap() {
 
+	system("cls");
+
 	for (int i = 0; i < rows; i++)
 	{
-		for (int j = 0; j <= columns; j++)
+		for (int j = 0; j < columns; j++)
 		{
-			if (j == columns)
-			{
-				std::cout << '\n';
-			}
-			else
-			{
-				std::cout << (char)table[i][j];
+			switch(table[i][j]){
+			
+			case Cell::WALL:
+				colour(17);
+				std::cout << (char)table[i][j] << (char)table[i][j];
+				colour(7);
+				break;
+			case Cell::PLAYER:
+				colour(100);
+				std::cout << (char)table[i][j] << ' ';
+				colour(7);
+				break;
+			default:
+				std::cout << ' ' << (char)table[i][j];
+				break;
+			
+			
+			
 			}
 		}
+		std::cout << std::endl;
 	}
+
+}
+
+void Map::colour(int colour) {
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colour);
+
 
 }
