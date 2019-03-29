@@ -10,9 +10,9 @@ Table::Map::Map() {
 
 	if (config.is_open())
 	{
-		config >> rows >> columns;
-
-		
+		config >> rows;
+		config >> columns;
+		config >> std::noskipws;
 
 	}
 
