@@ -83,6 +83,7 @@ void Map::printMap() {
 				std::cout << ' ' << (char)table[i][j];
 				break;
 			
+
 			
 			
 			}
