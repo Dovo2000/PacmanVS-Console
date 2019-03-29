@@ -3,8 +3,6 @@
 #include <Windows.h>
 #include <string>
 
-namespace Table {
-
 	struct Map
 	{
 
@@ -24,4 +22,3 @@ namespace Table {
 
 	};
 
-}
