@@ -1,13 +1,14 @@
 #pragma once
+#include "Map.h"
 #include <iostream>
 #include <fstream>
 #include <Windows.h>
 
 	struct Pacman {
 
-		Map::Cell player = Map::Cell::PLAYER;
-		int posX;
-		int posY;
+		Map::Cell player;
+		static int posX;
+		static int posY;
 		int score;
 
 		Pacman();				//Constructor en el que definiremos la posicion inicial del player y inicializamos el score a 0

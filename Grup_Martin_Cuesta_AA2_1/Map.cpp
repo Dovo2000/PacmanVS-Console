@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "Player.h"
 #include <iostream>
 #include <Windows.h>
 #include <fstream>
@@ -34,7 +35,7 @@ char aux;
 
 				if (aux != '\n')
 				{
-					Map::table[i][j] = (Cell)aux;
+					table[i][j] = (Cell)aux;
 
 				}
 				else
@@ -44,7 +45,9 @@ char aux;
 
 			}
 		}
+		
 
+		
 		config.close();
 	}
 	else
@@ -52,6 +55,7 @@ char aux;
 		std::cout << "File not avilable \n";
 		system("pause");
 	}
+	
 
 }
 
@@ -72,7 +76,7 @@ void Map::printMap() {
 				break;
 			case Cell::PLAYER:
 				colour(100);
-				std::cout << (char)table[i][j] << ' ';
+				std::cout << ' ' << (char)table[i][j];
 				colour(7);
 				break;
 			default:

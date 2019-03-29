@@ -5,9 +5,29 @@
 #include <Windows.h>
 
 Pacman::Pacman() {
-
-	posX = 15;
-	posY = 15;
+	player = Map::Cell::PLAYER;
+	posX = 10;
+	posY = 12;
 	score = 0;
-	Map::table[15][15] = player;
+	
+}
+
+bool Pacman::onPoint() {
+	
+}
+
+void Pacman::getPoints() {
+
+}
+
+void Pacman::printPoints() {
+	std::cout << score << std::endl;
+}
+
+bool Pacman::allowMovement() {
+
+}
+
+void Pacman::movePlayer() {
+
 }
