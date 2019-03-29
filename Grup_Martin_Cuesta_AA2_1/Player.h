@@ -5,6 +5,7 @@
 
 	struct Pacman {
 
+		Map::Cell player = Map::Cell::PLAYER;
 		int posX;
 		int posY;
 		int score;
