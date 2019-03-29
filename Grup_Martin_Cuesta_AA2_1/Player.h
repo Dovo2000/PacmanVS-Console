@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <fstream>
-#include <Windows.h>
+namespace Player {
 
 	struct Pacman {
 
@@ -22,3 +22,4 @@
 	};
 
 
+}
