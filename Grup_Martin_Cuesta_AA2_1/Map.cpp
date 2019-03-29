@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include <fstream>
 
-Map::Map() {
+Table::Map::Map() {
 	
 	
 	std::ifstream config("config.txt");
