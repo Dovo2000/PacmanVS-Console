@@ -1,5 +1,6 @@
 #pragma once
 #include "Player.h"
+#include "Types.h"
 #include <iostream>
 #include <Windows.h>
 #include <string>
@@ -9,12 +10,12 @@
 	class Map
 	{
 	public:
-		enum class Cell {POINT='*',WALL='X',SPACE=' ',PLAYER= '>'};
+		
 
 		Map();
 		int rows;
 		int columns;
-		Cell **table;
+		Cell **dataTable;
 
 	
 		

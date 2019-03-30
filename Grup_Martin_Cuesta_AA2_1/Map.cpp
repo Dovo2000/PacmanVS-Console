@@ -19,11 +19,11 @@ char aux;
 		
 		config >> std::noskipws;
 
-		Map::table = new Map::Cell*[rows];
+		dataTable = new Cell*[rows];
 
 		for (int i = 0; i < rows; i++)
 		{
-			Map::table[i] = new Map::Cell[columns];
+			dataTable[i] = new Cell[columns];
 
 		}
 
@@ -35,7 +35,7 @@ char aux;
 
 				if (aux != '\n')
 				{
-					table[i][j] = (Cell)aux;
+					dataTable[i][j] = (Cell)aux;
 
 				}
 				else
@@ -67,20 +67,20 @@ void Map::printMap() {
 	{
 		for (int j = 0; j < columns; j++)
 		{
-			switch(table[i][j]){
+			switch(dataTable[i][j]){
 			
 			case Cell::WALL:
 				colour(17);
-				std::cout << (char)table[i][j] << (char)table[i][j];
+				std::cout << (char)dataTable[i][j] << (char)dataTable[i][j];
 				colour(7);
 				break;
 			case Cell::PLAYER:
 				colour(100);
-				std::cout << ' ' << (char)table[i][j];
+				std::cout << (char)dataTable[i][j];
 				colour(7);
 				break;
 			default:
-				std::cout << ' ' << (char)table[i][j];
+				std::cout << (char)dataTable[i][j];
 				break;
 			
 
