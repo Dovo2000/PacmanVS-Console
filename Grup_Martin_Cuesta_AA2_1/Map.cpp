@@ -1,12 +1,10 @@
+#pragma once
 #include "Map.h"
-#include "Player.h"
-#include <iostream>
-#include <Windows.h>
 #include <fstream>
 
 Map::Map() {
 	
-char aux;
+	char aux;
 	char coma;
 
 	std::ifstream config("config.txt");
@@ -47,7 +45,7 @@ char aux;
 		}
 		
 
-		
+		pointCounter--;
 		config.close();
 	}
 	else
@@ -62,6 +60,7 @@ char aux;
 void Map::printMap() {
 
 	system("cls");
+	pointCounter = 0;
 
 	for (int i = 0; i < rows; i++)
 	{
@@ -75,14 +74,16 @@ void Map::printMap() {
 				colour(7);
 				break;
 			case Cell::PLAYER:
-				colour(100);
+				colour(14);
 				std::cout << (char)dataTable[i][j];
 				colour(7);
 				break;
 			default:
+				if (dataTable[i][j] == Cell::POINT) {
+					pointCounter++;
+				}
 				std::cout << (char)dataTable[i][j];
 				break;
-			
 
 			
 			
@@ -93,9 +94,8 @@ void Map::printMap() {
 
 }
 
+
 void Map::colour(int colour) {
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colour);
-
-
 }

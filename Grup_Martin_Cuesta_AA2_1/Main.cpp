@@ -6,9 +6,19 @@ int main() {
 
 	Map board;
 
-	//std::cout << myMap.columns << '\n' << myMap.rows << std::endl;
+	Pacman player(board);
+	
+	do {
+	
+		board.printMap();
+		player.printPoints();
+		if (player.allowMovement(board)) {
+			player.movePlayer(board);		
+		}
+		Sleep(300);
+		system("cls");
+	} while (!player.gameOver(board));
 
-	board.printMap();
 
 	system("pause");
 	return 0;
