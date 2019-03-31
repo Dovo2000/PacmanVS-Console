@@ -71,7 +71,7 @@ void Map::printMap() {
 			
 			case Cell::WALL:
 				colour(17);
-				std::cout << (char)dataTable[i][j] << (char)dataTable[i][j];
+				std::cout << (char)dataTable[i][j];
 				colour(7);
 				break;
 			case Cell::PLAYER:
