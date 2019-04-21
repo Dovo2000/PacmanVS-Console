@@ -9,15 +9,16 @@ int main() {
 	Pacman player(board);
 	
 	do {
-	
-		board.printMap();
-		player.printPoints();
-		if (player.allowMovement(board)) {
-			player.movePlayer(board);		
+		player.Mapping();						// Mapeado del teclado
+
+		if (player.AllowMovement(board)) {
+			player.MovePlayer(board);		
 		}
+		board.PrintMap();
+		player.PrintPoints();
 		Sleep(300);
 		system("cls");
-	} while (!player.gameOver(board));
+	} while (!player.GameOver(board));
 
 
 	system("pause");

@@ -13,9 +13,9 @@
 		Cell **dataTable;
 		int pointCounter = 0;
 
-		void printMap();
+		void PrintMap();
 		
 
-		void colour(int colour);
+		void Colour(int colour);
 
 	};

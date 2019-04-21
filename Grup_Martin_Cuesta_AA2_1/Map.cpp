@@ -57,7 +57,7 @@ Map::Map() {
 
 }
 
-void Map::printMap() {
+void Map::PrintMap() {
 
 	system("cls");
 	pointCounter = 0;
@@ -69,20 +69,40 @@ void Map::printMap() {
 			switch(dataTable[i][j]){
 			
 			case Cell::WALL:
-				colour(17);
-				std::cout << (char)dataTable[i][j];
-				colour(7);
+				Colour(17);
+				std::cout << (char)dataTable[i][j] << (char)dataTable[i][j];
+				Colour(7);
 				break;
 			case Cell::PLAYER:
-				colour(14);
-				std::cout << (char)dataTable[i][j];
-				colour(7);
+				Colour(14);
+				std::cout << " " << (char)dataTable[i][j];
+				Colour(7);
+				break;
+			case Cell::BLINKY:
+				Colour(5);
+				std::cout << " " << (char)dataTable[i][j];
+				Colour(7);
+				break;
+			case Cell::INKY:
+				Colour(3);
+				std::cout << " " << (char)dataTable[i][j];
+				Colour(7);
+				break;
+			case Cell::CLYDE:
+				Colour(4);
+				std::cout << " " << (char)dataTable[i][j];
+				Colour(7);
+				break;
+			case Cell::POWER_UP:
+				Colour(14);
+				std::cout << " " << (char)dataTable[i][j];
+				Colour(7);
 				break;
 			default:
 				if (dataTable[i][j] == Cell::POINT) {
 					pointCounter++;
 				}
-				std::cout << (char)dataTable[i][j];
+				std::cout << " " << (char)dataTable[i][j];
 				break;
 
 			
@@ -95,7 +115,7 @@ void Map::printMap() {
 }
 
 
-void Map::colour(int colour) {
+void Map::Colour(int colour) {
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colour);
 }
