@@ -12,8 +12,10 @@
 		int columns;
 		Cell **dataTable;
 		int pointCounter = 0;
+		GameState state;
 
 		void PrintMap();
+		void PrintState();
 		
 
 		void Colour(int colour);

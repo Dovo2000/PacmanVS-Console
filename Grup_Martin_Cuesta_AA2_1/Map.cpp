@@ -3,7 +3,7 @@
 #include <fstream>
 
 Map::Map() {
-	
+	state = GameState::INIT;
 	char aux;
 	char coma;
 
@@ -59,7 +59,7 @@ Map::Map() {
 
 void Map::PrintMap() {
 
-	system("cls");
+	
 	pointCounter = 0;
 
 	for (int i = 0; i < rows; i++)
@@ -112,6 +112,28 @@ void Map::PrintMap() {
 		std::cout << std::endl;
 	}
 
+}
+
+void Map::PrintState()
+{
+	switch (state)
+	{
+	case GameState::INIT:
+		std::cout << "*-*-" << "INIT" << "-*-*" << std::endl;
+		break;
+	case GameState::PLAY:
+		std::cout << "*-*-" << "PLAY" << "-*-*" << std::endl;
+		break;
+	case GameState::PAUSE:
+		std::cout << "*-*-" << "PAUSE" << "-*-*" << std::endl;
+		break;
+	case GameState::GAMEOVER:
+		std::cout << "*-*-" << "GAMEOVER" << "-*-*" << std::endl;
+		break;
+	
+	default:
+		break;
+	}
 }
 
 

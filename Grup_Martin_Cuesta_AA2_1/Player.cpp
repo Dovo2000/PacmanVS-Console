@@ -40,8 +40,8 @@ void Pacman::Mapping()
 	keyboard[(int)InputKey::LEFT_ARROW] = GetAsyncKeyState(VK_LEFT);
 	keyboard[(int)InputKey::RIGHT_ARROW] = GetAsyncKeyState(VK_RIGHT);
 	keyboard[(int)InputKey::ESC] = GetAsyncKeyState(VK_ESCAPE);
-	keyboard[(int)InputKey::PAUSE] = GetAsyncKeyState(0x50);
-	keyboard[(int)InputKey::INIT] = GetAsyncKeyState(VK_SPACE);
+	keyboard[(int)InputKey::P] = GetAsyncKeyState(0x50);
+	keyboard[(int)InputKey::SPACE] = GetAsyncKeyState(VK_SPACE);
 }
 
 bool Pacman::AllowMovement(Map table) {
@@ -174,6 +174,14 @@ void Pacman::TpPlayer(Map table) {
 
 }
 
-bool Pacman::GameOver(Map table){
-	return keyboard[(int)InputKey::ESC] || table.pointCounter == 0;
+void Pacman::ChangeState(Map& table){
+	if (keyboard[(int)InputKey::P]) {
+		 table.state = GameState::PAUSE;
+	}
+	else if (table.pointCounter == 0 || lives == 0) {
+		table.state = GameState::GAMEOVER;
+	}
+	else if (keyboard[(int)InputKey::SPACE]) {
+		table.state = GameState::PLAY;
+	}
 }

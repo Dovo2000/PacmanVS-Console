@@ -22,7 +22,7 @@
 		bool AllowMovement(Map table);	//Comprueba si el jugador puede moverse en una dirección
 		void MovePlayer(Map table);		//Usando la función de Windows.h GetAsyncKeyState(VirtualKey); VK_RIGHT, VK_LEFT, VK_UP, VK_DOWN
 		void TpPlayer(Map table);
-		bool GameOver(Map table);
+		void ChangeState(Map& table);
 
 	};
 
