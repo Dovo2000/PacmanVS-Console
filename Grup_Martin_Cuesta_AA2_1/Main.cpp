@@ -1,12 +1,14 @@
 #include <Windows.h>
 #include "Player.h"
 #include "Inky.h"
+#include "Clyde.h"
 
 int main() {
 
 	Map board;
 	Pacman player(board);
 	Inky inky(board);
+	Clyde clyde(board);
 	
 	do {
 			player.Mapping();							// Mapeado del teclado
@@ -28,6 +30,9 @@ int main() {
 				}
 				if (inky.AllowMovement(board, player)) {
 					inky.MoveInky(board, player);
+				}
+				if (clyde.AllowMovement(board, player)) {
+					clyde.MoveClyde(board, player);
 				}
 				board.PrintState();
 				board.PrintMap();
