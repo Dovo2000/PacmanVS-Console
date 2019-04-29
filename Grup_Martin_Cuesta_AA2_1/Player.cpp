@@ -46,30 +46,59 @@ void Pacman::Mapping()
 
 bool Pacman::AllowMovement(Map table) {
 	
-	
+	if (posX >= 1 &&  posY >= 0 && posX <= table.rows-1 && posY <= table.columns-1)
+	{
+		if (keyboard[(int)InputKey::UP_ARROW]){
+			keyPressed = InputKey::UP_ARROW;
+			return table.dataTable[posX - 1][posY] !=(Cell)'X';
 
-	if (keyboard[(int)InputKey::UP_ARROW]){
-		keyPressed = InputKey::UP_ARROW;
-		return table.dataTable[posX - 1][posY] !=(Cell)'X';
+		}
+		else if (keyboard[(int)InputKey::DOWN_ARROW]) {
+			keyPressed = InputKey::DOWN_ARROW;
+			if (posX != table.rows - 1)
+				return table.dataTable[posX + 1][posY] != (Cell)'X';
+			else
+				TpPlayer(table);
+
+
+		}
+		else if (keyboard[(int)InputKey::RIGHT_ARROW]) {
+			keyPressed = InputKey::RIGHT_ARROW;
+			return table.dataTable[posX][posY + 1] != (Cell)'X';
+
+		}
+		else if (keyboard[(int)InputKey::LEFT_ARROW]) {
+			keyPressed = InputKey::LEFT_ARROW;
+			return table.dataTable[posX][posY - 1] != (Cell)'X';
+
+		}
 
 	}
-	else if (keyboard[(int)InputKey::DOWN_ARROW]) {
-		keyPressed = InputKey::DOWN_ARROW;
-		return table.dataTable[posX + 1][posY] != (Cell)'X';
 
-	}
-	else if (keyboard[(int)InputKey::RIGHT_ARROW]) {
-		keyPressed = InputKey::RIGHT_ARROW;
-		return table.dataTable[posX][posY + 1] != (Cell)'X';
-
-	}
-	else if (keyboard[(int)InputKey::LEFT_ARROW]) {
-		keyPressed = InputKey::LEFT_ARROW;
-		return table.dataTable[posX][posY - 1] != (Cell)'X';
-
-	}
 	else {
-		return false;
+
+		if (keyboard[(int)InputKey::UP_ARROW] ) {
+			
+			TpPlayer(table);
+			return false;
+		}
+		else if (keyboard[(int)InputKey::DOWN_ARROW] ) {
+			
+			TpPlayer(table);
+			return false;
+		}
+		else if (keyboard[(int)InputKey::RIGHT_ARROW] ) {
+			
+			TpPlayer(table);
+			return false;
+
+		}
+		else if (keyboard[(int)InputKey::LEFT_ARROW] ) {
+			
+			TpPlayer(table);
+			return false;
+
+		}
 	}
 }
 
@@ -96,27 +125,19 @@ void Pacman::MovePlayer(Map table) {
 	case InputKey::LEFT_ARROW:
 		posY--;
 		GetPoint(table);
-		if (posY == -1 && table.dataTable[posX][posY] != Cell::WALL) {
-			TpPlayer(table);
-			table.dataTable[posX][0] = Cell::SPACE;
-		}
-		else {
-			table.dataTable[posX][posY] = Cell::PLAYER;
-			table.dataTable[posX][posY + 1] = Cell::SPACE;
-		}		
+		
+		table.dataTable[posX][posY] = Cell::PLAYER;
+		table.dataTable[posX][posY + 1] = Cell::SPACE;
+			
 		break;
 
 	case InputKey::RIGHT_ARROW:
 		posY++;
 		GetPoint(table);
-		if (posY == table.columns && table.dataTable[posX][posY] != Cell::WALL) {
-			TpPlayer(table);
-			table.dataTable[posX][table.columns-1] = Cell::SPACE;
-		}
-		else {
-			table.dataTable[posX][posY] = Cell::PLAYER;
-			table.dataTable[posX][posY-1] = Cell::SPACE;
-		}
+	
+		table.dataTable[posX][posY] = Cell::PLAYER;
+		table.dataTable[posX][posY-1] = Cell::SPACE;
+		
 		
 		break;
 
@@ -127,18 +148,30 @@ void Pacman::MovePlayer(Map table) {
 }
 
 void Pacman::TpPlayer(Map table) {
-	if (posY == -1) {
+	if (keyboard[(int)InputKey::LEFT_ARROW]) {
+
 		posY = table.columns-1;
+		table.dataTable[posX][0] = Cell::SPACE;
+		table.dataTable[posX][posY] = Cell::PLAYER;
+
 	}
-	else if (posY == table.columns) {
+	else if (keyboard[(int)InputKey::RIGHT_ARROW]) {
 		posY = 0;
+		table.dataTable[posX][table.columns-1] = Cell::SPACE;
+		table.dataTable[posX][posY] = Cell::PLAYER;
 	}
-	else if (posX == 1) {
-		posX = table.rows - 1;
+	else if (keyboard[(int)InputKey::UP_ARROW]) {
+		posX = table.rows-1;
+		table.dataTable[0][posY] = Cell::SPACE;
+		table.dataTable[posX][posY] = Cell::PLAYER;
 	}
-	else if (posX == table.rows) {
+	else if (keyboard[(int)InputKey::DOWN_ARROW]) {
 		posX = 0;
+		table.dataTable[table.rows-1][posY] = Cell::SPACE;
+		table.dataTable[posX][posY] = Cell::PLAYER;
 	}
+
+
 }
 
 bool Pacman::GameOver(Map table){
