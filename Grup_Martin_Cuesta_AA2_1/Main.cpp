@@ -1,12 +1,12 @@
 #include <Windows.h>
-#include "Map.h"
 #include "Player.h"
+#include "Inky.h"
 
 int main() {
 
 	Map board;
-
 	Pacman player(board);
+	Inky inky(board);
 	
 	do {
 			player.Mapping();							// Mapeado del teclado
@@ -25,6 +25,9 @@ int main() {
 			case GameState::PLAY:
 				if (player.AllowMovement(board)) {
 					player.MovePlayer(board);
+				}
+				if (inky.AllowMovement(board, player)) {
+					inky.MoveInky(board, player);
 				}
 				board.PrintState();
 				board.PrintMap();
@@ -52,6 +55,5 @@ int main() {
 		
 	}while (!GetAsyncKeyState(VK_ESCAPE));
 
-	system("pause");
 	return 0;
 }
