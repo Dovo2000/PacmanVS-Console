@@ -20,6 +20,7 @@ int main() {
 				board.PrintState();
 				board.PrintMap();
 				player.PrintPoints();
+				player.PrintLives();
 				Sleep(300);
 				system("cls");
 				break;
@@ -37,6 +38,7 @@ int main() {
 				board.PrintState();
 				board.PrintMap();
 				player.PrintPoints();
+				player.PrintLives();
 				Sleep(300);
                 system("cls");
 				break;
@@ -45,6 +47,7 @@ int main() {
 				board.PrintState();
 				board.PrintMap();
 				player.PrintPoints();
+				player.PrintLives();
 				Sleep(300);
 				system("cls");
 				break;
@@ -53,6 +56,7 @@ int main() {
 				board.PrintState();
 				board.PrintMap();
 				player.PrintPoints();
+				player.PrintLives();
 				Sleep(300);
 				system("cls");
 				break;

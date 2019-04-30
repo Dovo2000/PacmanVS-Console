@@ -27,6 +27,9 @@
 		void MovePlayer(Map table);		//Usando la función de Windows.h GetAsyncKeyState(VirtualKey); VK_RIGHT, VK_LEFT, VK_UP, VK_DOWN
 		void TpPlayer(Map table);
 		void ChangeState(Map& table);
+		void GetDamage(Map table);
+		void PrintLives();
+		void Colour(int colour);
 
 	};
 

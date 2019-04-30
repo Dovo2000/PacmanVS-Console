@@ -30,7 +30,7 @@ void Pacman::GetPoint(Map table) {
 
 void Pacman::PrintPoints() {
 
-	std::cout << "Score: " << score << std::endl;
+	std::cout << "Score: " << score;
 }
 
 void Pacman::Mapping()
@@ -50,26 +50,84 @@ bool Pacman::AllowMovement(Map table) {
 	{
 		if (keyboard[(int)InputKey::UP_ARROW]){
 			keyPressed = InputKey::UP_ARROW;
-			return table.dataTable[posX - 1][posY] !=(Cell)'X';
-
+			if (table.dataTable[posX - 1][posY] == Cell::INKY || table.dataTable[posX - 1][posY] == Cell::CLYDE || table.dataTable[posX - 1][posY] == Cell::BLINKY) {
+				if (table.dataTable[posX - 1][posY] == Cell::INKY) {
+					table.dataTable[posX - 1][posY] = Cell::INKY;
+				}
+				else if (table.dataTable[posX - 1][posY] == Cell::CLYDE) {
+					table.dataTable[posX - 1][posY] = Cell::CLYDE;
+				}
+				else if (table.dataTable[posX - 1][posY] == Cell::BLINKY) {
+					table.dataTable[posX - 1][posY] = Cell::BLINKY;
+				}
+				GetDamage(table);
+				return false;
+			}
+			else {
+				return table.dataTable[posX - 1][posY] != (Cell)'X';
+			}
 		}
 		else if (keyboard[(int)InputKey::DOWN_ARROW]) {
 			keyPressed = InputKey::DOWN_ARROW;
-			if (posX != table.rows - 1)
-				return table.dataTable[posX + 1][posY] != (Cell)'X';
-			else
-				TpPlayer(table);
-
+			if (table.dataTable[posX + 1][posY] == Cell::INKY || table.dataTable[posX + 1][posY] == Cell::CLYDE || table.dataTable[posX + 1][posY] == Cell::BLINKY) {
+				if (table.dataTable[posX + 1][posY] == Cell::INKY) {
+					table.dataTable[posX + 1][posY] = Cell::INKY;
+				}
+				else if (table.dataTable[posX + 1][posY] == Cell::CLYDE) {
+					table.dataTable[posX + 1][posY] = Cell::CLYDE;
+				}
+				else if (table.dataTable[posX + 1][posY] == Cell::BLINKY) {
+					table.dataTable[posX + 1][posY] = Cell::BLINKY;
+				}
+				GetDamage(table);
+				return false;
+			}
+			else {
+				if (posX != table.rows - 1)
+					return table.dataTable[posX + 1][posY] != (Cell)'X';
+				else
+					TpPlayer(table);
+			}
 
 		}
 		else if (keyboard[(int)InputKey::RIGHT_ARROW]) {
 			keyPressed = InputKey::RIGHT_ARROW;
-			return table.dataTable[posX][posY + 1] != (Cell)'X';
+			if (table.dataTable[posX][posY + 1] == Cell::INKY || table.dataTable[posX][posY + 1] == Cell::CLYDE || table.dataTable[posX][posY + 1] == Cell::BLINKY) {
+				if (table.dataTable[posX][posY + 1] == Cell::INKY) {
+					table.dataTable[posX][posY + 1] = Cell::INKY;
+				}
+				else if (table.dataTable[posX][posY + 1] == Cell::CLYDE) {
+					table.dataTable[posX][posY + 1] = Cell::CLYDE;
+				}
+				else if (table.dataTable[posX][posY + 1] == Cell::BLINKY) {
+					table.dataTable[posX][posY + 1] = Cell::BLINKY;
+				}
+				GetDamage(table);
+				return false;
+			}
+			else {
+				return table.dataTable[posX][posY + 1] != (Cell)'X';
+			}
 
 		}
 		else if (keyboard[(int)InputKey::LEFT_ARROW]) {
 			keyPressed = InputKey::LEFT_ARROW;
-			return table.dataTable[posX][posY - 1] != (Cell)'X';
+			if (table.dataTable[posX][posY - 1] == Cell::INKY || table.dataTable[posX][posY - 1] == Cell::CLYDE || table.dataTable[posX][posY - 1] == Cell::BLINKY) {
+				if (table.dataTable[posX][posY - 1] == Cell::INKY) {
+					table.dataTable[posX][posY - 1] = Cell::INKY;
+				}
+				else if (table.dataTable[posX][posY - 1] == Cell::CLYDE) {
+					table.dataTable[posX][posY - 1] = Cell::CLYDE;
+				}
+				else if (table.dataTable[posX][posY - 1] == Cell::BLINKY) {
+					table.dataTable[posX][posY - 1] = Cell::BLINKY;
+				}
+				GetDamage(table);
+				return false;
+			}
+			else {
+				return table.dataTable[posX][posY - 1] != (Cell)'X';
+			}
 
 		}
 
@@ -184,4 +242,39 @@ void Pacman::ChangeState(Map& table){
 	else if (keyboard[(int)InputKey::SPACE]) {
 		table.state = GameState::PLAY;
 	}
+}
+
+void Pacman::GetDamage(Map table)
+{
+	table.dataTable[posX][posY] = Cell::SPACE;
+	posX = initPosX;
+	posY = initPosY;
+	table.dataTable[posX][posY] = Cell::PLAYER;
+	lives--;
+}
+
+void Pacman::PrintLives()
+{
+	std::cout << "		  LIVES: ";
+	Colour(14);
+	switch (lives)
+	{
+	case 3:
+		std::cout << "< < <" << std::endl;
+		break;
+	case 2:
+		std::cout << "< <" << std::endl;
+		break;
+	case 1:
+		std::cout << "<" << std::endl;
+		break;
+	default:
+		break;
+	}
+	Colour(7);
+}
+
+void Pacman::Colour(int colour)
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colour);
 }
