@@ -30,6 +30,9 @@
     <ClCompile Include="Clyde.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Blinky.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Clyde.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Blinky.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

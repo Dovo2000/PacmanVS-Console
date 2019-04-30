@@ -132,31 +132,11 @@ bool Pacman::AllowMovement(Map table) {
 		}
 
 	}
-
 	else {
 
-		if (keyboard[(int)InputKey::UP_ARROW] ) {
-			
-			TpPlayer(table);
-			return false;
-		}
-		else if (keyboard[(int)InputKey::DOWN_ARROW] ) {
-			
-			TpPlayer(table);
-			return false;
-		}
-		else if (keyboard[(int)InputKey::RIGHT_ARROW] ) {
-			
-			TpPlayer(table);
-			return false;
+		TpPlayer(table);
+		return false;
 
-		}
-		else if (keyboard[(int)InputKey::LEFT_ARROW] ) {
-			
-			TpPlayer(table);
-			return false;
-
-		}
 	}
 }
 
