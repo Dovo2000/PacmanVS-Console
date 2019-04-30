@@ -59,9 +59,11 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 					{
 					case 0:
 						move = Direction::UP;
+						return true;
 						break;
 					case 1:
 						move = Direction::LEFT;
+						return true;
 						break;
 					default:
 						return false;
@@ -75,9 +77,11 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 					{
 					case 0:
 						move = Direction::UP;
+						return true;
 						break;
 					case 1:
 						move = Direction::RIGHT;
+						return true;
 						break;
 					default:
 						return false;
@@ -91,9 +95,11 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 					{
 					case 0:
 						move = Direction::LEFT;
+						return true;
 						break;
 					case 1:
 						move = Direction::RIGHT;
+						return true;
 						break;
 					default:
 						return false;
@@ -122,7 +128,7 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 				TpBlinky(table, player);
 			else {
 				if (table.dataTable[posX + 1][posY] != Cell::WALL && table.dataTable[posX][posY - 1] != Cell::WALL && table.dataTable[posX][posY + 1] != Cell::WALL) {
-					random = rand() % 3;
+					random = rand() % 2;
 
 					switch (random)
 					{
@@ -144,15 +150,17 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 
 				}
 				else if (table.dataTable[posX + 1][posY] != Cell::WALL && table.dataTable[posX][posY - 1] != Cell::WALL && table.dataTable[posX][posY + 1] == Cell::WALL) {
-					random = rand() % 2;
+					random = rand() % 1;
 
 					switch (random)
 					{
 					case 0:
 						move = Direction::DOWN;
+						return true;
 						break;
 					case 1:
 						move = Direction::LEFT;
+						return true;
 						break;
 					default:
 						return false;
@@ -160,15 +168,17 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 					}
 				}
 				else if (table.dataTable[posX + 1][posY] != Cell::WALL && table.dataTable[posX][posY - 1] == Cell::WALL && table.dataTable[posX][posY + 1] != Cell::WALL) {
-					random = rand() % 2;
+					random = rand() % 1;
 
 					switch (random)
 					{
 					case 0:
 						move = Direction::DOWN;
+						return true;
 						break;
 					case 1:
 						move = Direction::RIGHT;
+						return true;
 						break;
 					default:
 						return false;
@@ -176,15 +186,17 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 					}
 				}
 				else if (table.dataTable[posX + 1][posY] == Cell::WALL && table.dataTable[posX][posY - 1] != Cell::WALL && table.dataTable[posX][posY + 1] != Cell::WALL) {
-					random = rand() % 2;
+					random = rand() % 1;
 
 					switch (random)
 					{
 					case 0:
 						move = Direction::LEFT;
+						return true;
 						break;
 					case 1:
 						move = Direction::RIGHT;
+						return true;
 						break;
 					default:
 						return false;
@@ -211,7 +223,7 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 
 		case Direction::RIGHT:
 			if (table.dataTable[posX + 1][posY] != Cell::WALL && table.dataTable[posX - 1][posY] != Cell::WALL && table.dataTable[posX][posY + 1] != Cell::WALL) {
-				random = rand() % 3;
+				random = rand() % 2;
 
 				switch (random)
 				{
@@ -220,7 +232,7 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 					return true;
 					break;
 				case 1:
-					move = Direction::UP;
+					move = Direction::UP;					
 					return true;
 					break;
 				case 2:
@@ -233,15 +245,17 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 
 			}
 			else if (table.dataTable[posX + 1][posY] != Cell::WALL && table.dataTable[posX - 1][posY] != Cell::WALL && table.dataTable[posX][posY + 1] == Cell::WALL) {
-				random = rand() % 2;
+				random = rand() % 1;
 
 				switch (random)
 				{
 				case 0:
 					move = Direction::DOWN;
+					return true;
 					break;
 				case 1:
 					move = Direction::UP;
+					return true;
 					break;
 				default:
 					return false;
@@ -249,15 +263,17 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 				}
 			}
 			else if (table.dataTable[posX + 1][posY] != Cell::WALL && table.dataTable[posX - 1][posY] == Cell::WALL && table.dataTable[posX][posY + 1] != Cell::WALL) {
-				random = rand() % 2;
+				random = rand() % 1;
 
 				switch (random)
 				{
 				case 0:
 					move = Direction::DOWN;
+					return true;
 					break;
 				case 1:
 					move = Direction::RIGHT;
+					return true;
 					break;
 				default:
 					return false;
@@ -265,15 +281,17 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 				}
 			}
 			else if (table.dataTable[posX + 1][posY] == Cell::WALL && table.dataTable[posX - 1][posY] != Cell::WALL && table.dataTable[posX][posY + 1] != Cell::WALL) {
-				random = rand() % 2;
+				random = rand() % 1;
 
 				switch (random)
 				{
 				case 0:
 					move = Direction::UP;
+					return true;
 					break;
 				case 1:
 					move = Direction::RIGHT;
+					return true;
 					break;
 				default:
 					return false;
@@ -298,7 +316,7 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 
 		case Direction::LEFT:
 			if (table.dataTable[posX + 1][posY] != Cell::WALL && table.dataTable[posX - 1][posY] != Cell::WALL && table.dataTable[posX][posY - 1] != Cell::WALL) {
-				random = rand() % 3;
+				random = rand() % 2;
 
 				switch (random)
 				{
@@ -320,15 +338,17 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 
 			}
 			else if (table.dataTable[posX + 1][posY] != Cell::WALL && table.dataTable[posX - 1][posY] != Cell::WALL && table.dataTable[posX][posY - 1] == Cell::WALL) {
-				random = rand() % 2;
+				random = rand() % 1;
 
 				switch (random)
 				{
 				case 0:
 					move = Direction::DOWN;
+					return true;
 					break;
 				case 1:
 					move = Direction::UP;
+					return true;
 					break;
 				default:
 					return false;
@@ -336,15 +356,17 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 				}
 			}
 			else if (table.dataTable[posX + 1][posY] != Cell::WALL && table.dataTable[posX - 1][posY] == Cell::WALL && table.dataTable[posX][posY - 1] != Cell::WALL) {
-				random = rand() % 2;
+				random = rand() % 1;
 
 				switch (random)
 				{
 				case 0:
 					move = Direction::DOWN;
+					return true;
 					break;
 				case 1:
 					move = Direction::LEFT;
+					return true;
 					break;
 				default:
 					return false;
@@ -352,15 +374,17 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 				}
 			}
 			else if (table.dataTable[posX + 1][posY] == Cell::WALL && table.dataTable[posX - 1][posY] != Cell::WALL && table.dataTable[posX][posY - 1] != Cell::WALL) {
-				random = rand() % 2;
+				random = rand() % 1;
 
 				switch (random)
 				{
 				case 0:
 					move = Direction::UP;
+					return true;
 					break;
 				case 1:
 					move = Direction::LEFT;
+					return true;
 					break;
 				default:
 					return false;
@@ -394,15 +418,14 @@ bool Blinky::AllowMovement(Map table, Pacman player)
 		return false;
 		
 	}
+	return false;
 }
 
 void Blinky::MoveBlinky(Map table, Pacman player)
 {
 	Cell aux2;
 	if (AllowMovement(table, player)) {
-		if (table.dataTable[posX][posY] == Cell::PLAYER) {
-			player.GetDamage(table);
-		}
+		
 		switch (move)
 		{
 		case Direction::UP:
@@ -414,6 +437,9 @@ void Blinky::MoveBlinky(Map table, Pacman player)
 				table.dataTable[posX][posY] = Cell::SPACE;
 			}
 			aux1 = aux2;
+			if (table.dataTable[posX - 1][posY] == Cell::PLAYER) {
+				player.GetDamage(table);
+			}
 			posX--;
 			table.dataTable[posX][posY] = Cell::BLINKY;
 			break;
@@ -426,6 +452,9 @@ void Blinky::MoveBlinky(Map table, Pacman player)
 				table.dataTable[posX][posY] = Cell::SPACE;
 			}
 			aux1 = aux2;
+			if (table.dataTable[posX + 1][posY] == Cell::PLAYER) {
+				player.GetDamage(table);
+			}
 			posX++;
 			table.dataTable[posX][posY] = Cell::BLINKY;
 			break;
@@ -436,6 +465,9 @@ void Blinky::MoveBlinky(Map table, Pacman player)
 			}
 			else {
 				table.dataTable[posX][posY] = Cell::SPACE;
+			}
+			if (table.dataTable[posX][posY + 1] == Cell::PLAYER) {
+				player.GetDamage(table);
 			}
 			aux1 = aux2;
 			posY++;
@@ -450,6 +482,9 @@ void Blinky::MoveBlinky(Map table, Pacman player)
 				table.dataTable[posX][posY] = Cell::SPACE;
 			}
 			aux1 = aux2;
+			if (table.dataTable[posX][posY - 1] == Cell::PLAYER) {
+				player.GetDamage(table);
+			}
 			posY--;
 			table.dataTable[posX][posY] = Cell::BLINKY;
 			break;

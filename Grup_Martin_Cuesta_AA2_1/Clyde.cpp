@@ -47,6 +47,7 @@ bool Clyde::AllowMovement(Map table, Pacman player)
 		return false;
 		
 	}
+	return false;
 }
 
 void Clyde::MoveClyde(Map table, Pacman player)
@@ -55,9 +56,13 @@ void Clyde::MoveClyde(Map table, Pacman player)
 	if (AllowMovement(table, player)) {		
 		
 		if (player.keyboard[(int)InputKey::DOWN_ARROW]) {
+			if (table.dataTable[posX + 1][posY] == Cell::PLAYER) {
+				player.GetDamage(table);
+			}
 			aux2 = table.dataTable[posX - 1][posY];
 			if (aux1 != Cell::PLAYER && aux1 != Cell::BLINKY && aux1 != Cell::INKY && aux1 != Cell::CLYDE) {
 				table.dataTable[posX][posY] = aux1;
+				
 			}
 			else {
 				table.dataTable[posX][posY] = Cell::SPACE;
@@ -66,8 +71,10 @@ void Clyde::MoveClyde(Map table, Pacman player)
 			posX--;
 			table.dataTable[posX][posY] = Cell::CLYDE;
 		}
-
 		else if (player.keyboard[(int)InputKey::UP_ARROW]) {
+			if (table.dataTable[posX - 1][posY] == Cell::PLAYER) {
+				player.GetDamage(table);
+			}
 			aux2 = table.dataTable[posX + 1][posY];
 			if(aux1 != Cell::PLAYER && aux1 != Cell::BLINKY && aux1 != Cell::INKY && aux1 != Cell::CLYDE){
 			table.dataTable[posX][posY] = aux1;
@@ -81,6 +88,9 @@ void Clyde::MoveClyde(Map table, Pacman player)
 		}
 
 		else if (player.keyboard[(int)InputKey::RIGHT_ARROW]) {
+			if (table.dataTable[posX][posY + 1] == Cell::PLAYER) {
+				player.GetDamage(table);
+			}
 			aux2 = table.dataTable[posX][posY - 1];
 			if (aux1 != Cell::PLAYER && aux1 != Cell::BLINKY && aux1 != Cell::INKY && aux1 != Cell::CLYDE) {
 				table.dataTable[posX][posY] = aux1;
@@ -94,6 +104,9 @@ void Clyde::MoveClyde(Map table, Pacman player)
 		}
 
 		else if (player.keyboard[(int)InputKey::LEFT_ARROW]) {
+			if (table.dataTable[posX][posY - 1] == Cell::PLAYER) {
+				player.GetDamage(table);
+			}
 			aux2 = table.dataTable[posX][posY + 1];
 			if (aux1 != Cell::PLAYER && aux1 != Cell::BLINKY && aux1 != Cell::INKY && aux1 != Cell::CLYDE) {
 				table.dataTable[posX][posY] = aux1;
@@ -104,6 +117,9 @@ void Clyde::MoveClyde(Map table, Pacman player)
 			aux1 = aux2;
 			posY++;
 			table.dataTable[posX][posY] = Cell::CLYDE;
+		}
+		if (table.dataTable[posX][posY] == Cell::PLAYER) {
+			player.GetDamage(table);
 		}
 	}
 }

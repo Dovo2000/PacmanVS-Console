@@ -29,18 +29,19 @@ int main() {
 				break;
 
 			case GameState::PLAY:
-				if (blinky.AllowMovement(board, player)) {
-					blinky.MoveBlinky(board, player);
-				}
-				if (inky.AllowMovement(board, player)) {
-					inky.MoveInky(board, player);
-				}
-				if (clyde.AllowMovement(board, player)) {
-					clyde.MoveClyde(board, player);
-				}
-				if (player.AllowMovement(board)) {
+				
+				blinky.MoveBlinky(board, player);
+				
+				
+				inky.MoveInky(board, player);
+				
+				
+				clyde.MoveClyde(board, player);
+				
+				if(player.AllowMovement(board))
 					player.MovePlayer(board);
-				}
+				
+				
 				board.PrintState();
 				board.PrintMap();
 				player.PrintPoints();

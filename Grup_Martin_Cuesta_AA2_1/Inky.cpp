@@ -46,17 +46,18 @@ bool Inky::AllowMovement(Map table, Pacman player)
 		return false;
 		
 	}
+	return false;
 }
 
 void Inky::MoveInky(Map table, Pacman player)
 {
 	Cell aux2;
 	if (AllowMovement(table, player)) {
-		if (table.dataTable[posX][posY] == Cell::PLAYER) {
-			player.GetDamage(table);
-		}
-
+		
 		if (player.keyboard[(int)InputKey::UP_ARROW]) {
+			if (table.dataTable[posX - 1][posY] == Cell::PLAYER) {
+				player.GetDamage(table);
+			}
 			aux2 = table.dataTable[posX - 1][posY];
 			if (aux1 != Cell::PLAYER && aux1 != Cell::BLINKY && aux1 != Cell::INKY && aux1 != Cell::CLYDE) {
 				table.dataTable[posX][posY] = aux1;
@@ -70,6 +71,9 @@ void Inky::MoveInky(Map table, Pacman player)
 		}
 
 		else if (player.keyboard[(int)InputKey::DOWN_ARROW]) {
+			if (table.dataTable[posX + 1][posY] == Cell::PLAYER) {
+				player.GetDamage(table);
+			}
 			aux2 = table.dataTable[posX + 1][posY];
 			if (aux1 != Cell::PLAYER && aux1 != Cell::BLINKY && aux1 != Cell::INKY && aux1 != Cell::CLYDE) {
 				table.dataTable[posX][posY] = aux1;
@@ -83,6 +87,9 @@ void Inky::MoveInky(Map table, Pacman player)
 		}
 
 		else if (player.keyboard[(int)InputKey::LEFT_ARROW]) {
+			if (table.dataTable[posX][posY - 1] == Cell::PLAYER) {
+				player.GetDamage(table);
+			}
 			aux2 = table.dataTable[posX][posY - 1];
 			if (aux1 != Cell::PLAYER && aux1 != Cell::BLINKY && aux1 != Cell::INKY && aux1 != Cell::CLYDE) {
 				table.dataTable[posX][posY] = aux1;
@@ -96,6 +103,9 @@ void Inky::MoveInky(Map table, Pacman player)
 		}
 
 		else if (player.keyboard[(int)InputKey::RIGHT_ARROW]) {
+			if (table.dataTable[posX][posY + 1] == Cell::PLAYER) {
+				player.GetDamage(table);
+			}
 			aux2 = table.dataTable[posX][posY + 1];
 			if (aux1 != Cell::PLAYER && aux1 != Cell::BLINKY && aux1 != Cell::INKY && aux1 != Cell::CLYDE) {
 				table.dataTable[posX][posY] = aux1;
@@ -107,7 +117,9 @@ void Inky::MoveInky(Map table, Pacman player)
 			posY++;
 			table.dataTable[posX][posY] = Cell::INKY;
 		}
-		
+		if (table.dataTable[posX][posY] == Cell::PLAYER) {
+			player.GetDamage(table);
+		}
 	}
 }
 

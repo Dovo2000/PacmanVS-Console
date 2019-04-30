@@ -46,7 +46,7 @@ void Pacman::Mapping()
 
 bool Pacman::AllowMovement(Map table) {
 	
-	if (posX >= 1 &&  posY >= 0 && posX <= table.rows-1 && posY <= table.columns-1)
+	if (posX >= 1 &&  posY >= 0 && posX < table.rows-1 && posY <= table.columns-1)
 	{
 		if (keyboard[(int)InputKey::UP_ARROW]){
 			keyPressed = InputKey::UP_ARROW;
@@ -135,9 +135,10 @@ bool Pacman::AllowMovement(Map table) {
 	else {
 
 		TpPlayer(table);
-		return false;
+		return true;
 
 	}
+	return false;
 }
 
 void Pacman::MovePlayer(Map table) {
@@ -226,9 +227,13 @@ void Pacman::ChangeState(Map& table){
 
 void Pacman::GetDamage(Map table)
 {
-	table.dataTable[posX][posY] = Cell::SPACE;
+	int lastX;
+	int lastY;
+	lastX = posX;
+	lastY = posY;
 	posX = initPosX;
 	posY = initPosY;
+	table.dataTable[lastX][lastY] = Cell::SPACE;
 	table.dataTable[posX][posY] = Cell::PLAYER;
 	lives--;
 }
