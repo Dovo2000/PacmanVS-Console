@@ -64,52 +64,38 @@ bool Clyde::AllowMovement(Map table, Pacman player)
 void Clyde::MoveClyde(Map table, Pacman player)
 {
 	Cell aux2;
-	if (AllowMovement(table, player)) {
-
-		switch (player.keyPressed)
-		{
-		case InputKey::DOWN_ARROW:
+	if (AllowMovement(table, player)) {		
+		
+		if (player.keyboard[(int)InputKey::DOWN_ARROW]) {
 			aux2 = table.dataTable[posX - 1][posY];
 			table.dataTable[posX][posY] = aux1;
 			aux1 = aux2;
 			posX--;
 			table.dataTable[posX][posY] = Cell::CLYDE;
+		}
 
-
-			break;
-
-		case InputKey::UP_ARROW:
+		else if (player.keyboard[(int)InputKey::UP_ARROW]) {
 			aux2 = table.dataTable[posX + 1][posY];
 			table.dataTable[posX][posY] = aux1;
 			aux1 = aux2;
 			posX++;
 			table.dataTable[posX][posY] = Cell::CLYDE;
+		}
 
-
-			break;
-
-		case InputKey::RIGHT_ARROW:
+		else if (player.keyboard[(int)InputKey::RIGHT_ARROW]) {
 			aux2 = table.dataTable[posX][posY - 1];
 			table.dataTable[posX][posY] = aux1;
 			aux1 = aux2;
 			posY--;
 			table.dataTable[posX][posY] = Cell::CLYDE;
+		}
 
-
-			break;
-
-		case InputKey::LEFT_ARROW:
+		else if (player.keyboard[(int)InputKey::LEFT_ARROW]) {
 			aux2 = table.dataTable[posX][posY + 1];
 			table.dataTable[posX][posY] = aux1;
 			aux1 = aux2;
 			posY++;
 			table.dataTable[posX][posY] = Cell::CLYDE;
-
-
-			break;
-
-		default:
-			break;
 		}
 	}
 }
@@ -117,41 +103,37 @@ void Clyde::MoveClyde(Map table, Pacman player)
 void Clyde::TpClyde(Map table, Pacman player)
 {
 	Cell aux2;
-	switch (player.keyPressed)
-	{
-	case InputKey::RIGHT_ARROW:
+	
+	if (player.keyboard[(int)InputKey::RIGHT_ARROW]) {
 		aux2 = table.dataTable[posX][table.columns - 1];
 		table.dataTable[posX][posY] = aux1;
 		aux1 = aux2;
 		posY = table.columns - 1;
 		table.dataTable[posX][0] = aux2;
 		table.dataTable[posX][posY] = Cell::CLYDE;
-		break;
-	case InputKey::LEFT_ARROW:
+	}
+	else if (player.keyboard[(int)InputKey::LEFT_ARROW]) {
 		aux2 = table.dataTable[posX][0];
 		table.dataTable[posX][posY] = aux1;
 		aux1 = aux2;
 		posY = 0;
 		table.dataTable[posX][table.columns - 1] = aux2;
 		table.dataTable[posX][posY] = Cell::CLYDE;
-		break;
-	case InputKey::DOWN_ARROW:
+	}
+	else if (player.keyboard[(int)InputKey::DOWN_ARROW]) {
 		aux2 = table.dataTable[table.rows - 1][posY];
 		table.dataTable[posX][posY] = aux1;
 		aux1 = aux2;
 		posX = table.rows - 1;
 		table.dataTable[0][posY] = aux2;
 		table.dataTable[posX][posY] = Cell::CLYDE;
-		break;
-	case InputKey::UP_ARROW:
+	}
+	else if (player.keyboard[(int)InputKey::UP_ARROW]) {
 		aux2 = table.dataTable[0][posY];
 		table.dataTable[posX][posY] = aux1;
 		aux1 = aux2;
 		posX = 0;
 		table.dataTable[table.rows - 1][posY] = aux2;
 		table.dataTable[posX][posY] = Cell::CLYDE;
-		break;
-	default:
-		break;
 	}
 }

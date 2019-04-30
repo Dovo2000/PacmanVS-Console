@@ -25,14 +25,14 @@ int main() {
 				break;
 
 			case GameState::PLAY:
-				if (player.AllowMovement(board)) {
-					player.MovePlayer(board);
-				}
 				if (inky.AllowMovement(board, player)) {
 					inky.MoveInky(board, player);
 				}
 				if (clyde.AllowMovement(board, player)) {
 					clyde.MoveClyde(board, player);
+				}
+				if (player.AllowMovement(board)) {
+					player.MovePlayer(board);
 				}
 				board.PrintState();
 				board.PrintMap();
