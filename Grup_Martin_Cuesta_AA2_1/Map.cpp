@@ -136,7 +136,6 @@ void Map::PrintState()
 	}
 }
 
-
 void Map::Colour(int colour) {
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colour);

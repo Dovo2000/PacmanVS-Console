@@ -16,8 +16,6 @@ Pacman::Pacman(Map table) {
 		}
 	}			
 }
-	
-
 
 void Pacman::GetPoint(Map table) { 
 	
@@ -40,8 +38,11 @@ void Pacman::Mapping()
 	keyboard[(int)InputKey::LEFT_ARROW] = GetAsyncKeyState(VK_LEFT);
 	keyboard[(int)InputKey::RIGHT_ARROW] = GetAsyncKeyState(VK_RIGHT);
 	keyboard[(int)InputKey::ESC] = GetAsyncKeyState(VK_ESCAPE);
-	keyboard[(int)InputKey::P] = GetAsyncKeyState(0x50);
+	keyboard[(int)InputKey::P] = GetAsyncKeyState(0x50) || GetAsyncKeyState(0x70);
 	keyboard[(int)InputKey::SPACE] = GetAsyncKeyState(VK_SPACE);
+	keyboard[(int)InputKey::PLAY] = GetAsyncKeyState(0x31);
+	keyboard[(int)InputKey::RANKING] = GetAsyncKeyState(0x32);
+	keyboard[(int)InputKey::EXIT_GAME] = GetAsyncKeyState(0x30);
 }
 
 bool Pacman::AllowMovement(Map table) {
@@ -259,7 +260,7 @@ void Pacman::PrintLives()
 	Colour(7);
 }
 
-void Pacman::Colour(int colour)
-{
+void Pacman::Colour(int colour) {
+
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colour);
 }

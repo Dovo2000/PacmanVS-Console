@@ -1,7 +1,7 @@
 #pragma once
 #include "Types.h"
 #include <iostream>
-#include <Windows.h>
+
 
 	class Map
 	{
@@ -16,8 +16,5 @@
 
 		void PrintMap();
 		void PrintState();
-		
-
 		void Colour(int colour);
-
 	};

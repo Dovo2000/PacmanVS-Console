@@ -30,7 +30,7 @@
 		void GetDamage(Map table);
 		void PrintLives();
 		void Colour(int colour);
-
 	};
 
+	
 
