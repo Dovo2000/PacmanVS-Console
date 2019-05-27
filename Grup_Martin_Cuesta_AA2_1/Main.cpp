@@ -138,7 +138,9 @@ int main() {
 
 		case FullGameState::RANKING:
 
-			
+			board.Colour(224);
+			std::cout << "*-*-*-RANKING-*-*-*" << std::endl;
+			board.Colour(0);
 			PrintRanking(orderedMap);		
 
 			if (player.keyboard[(int)InputKey::ESC]) {

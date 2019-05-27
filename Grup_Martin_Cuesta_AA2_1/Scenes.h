@@ -8,7 +8,7 @@ void Colour(int colour) {
 
 void OrderRank(std::vector<std::pair<std::string, int>> ordenedMap, std::map<std::string, int> rank) {
 
-	std::copy(rank.begin(), rank.end(), std::back_inserter<std::vector<std::pair<std::string, int>>>(ordenedMap));
+	ordenedMap.insert(ordenedMap.begin(), rank.begin(), rank.end());
 	std::sort(ordenedMap.begin(), ordenedMap.end(),
 		[](const std::pair<std::string, int> & l, const std::pair<std::string, int> & r) {
 		if (l.second != r.second)
@@ -32,7 +32,7 @@ std::map<std::string, int> LoadRanking() {
 			rank.insert(std::pair<std::string, int>(name, score));
 		}
 	}
-
+	ranking.close();
 	return rank;
 }
 
@@ -51,11 +51,13 @@ void SaveRanking(std::string name, int _score, std::map<std::string, int> _rank,
 			ranking << it->first << " " << it->second;
 		}
 	}
-
+	ranking.close();
 }
 
 void PrintRanking(std::vector<std::pair<std::string, int>> _rank) {
-	for (int i = 0; i < 5; i++) {
+	std::vector<std::pair<std::string, int>>::iterator it;
+	it = _rank.begin();
+	for (int i = 0; i < 5 && it != _rank.end(); i++) {
 		if (i == 0) {
 			Colour(10);
 		}
@@ -66,6 +68,7 @@ void PrintRanking(std::vector<std::pair<std::string, int>> _rank) {
 			Colour(11);
 		}
 		std::cout << i + 1 << "- " << _rank[i].first << " => " << _rank[i].second << std::endl;
+		it++;
 	}
 }
 
