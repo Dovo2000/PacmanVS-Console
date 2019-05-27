@@ -1,8 +1,15 @@
 #include <Windows.h>
 #include <time.h>
+#include <string>
+#include <map>
+#include <vector>
+#include <fstream>
+#include <algorithm>
+#include "Scenes.h"
 #include "Inky.h"
 #include "Clyde.h"
 #include "Blinky.h"
+
 
 int main() {
 	srand(time(NULL));
@@ -12,6 +19,19 @@ int main() {
 	Clyde clyde(board);
 	Blinky blinky(board);
 	FullGameState gameState = FullGameState::MAIN_MENU;
+	std::map<std::string, int> rank;
+	
+	rank = LoadRanking();
+
+	std::vector<std::pair<std::string, int>> ordenedMap;
+	std::copy(rank.begin(), rank.end(), std::back_inserter<std::vector<std::pair<std::string, int>>>(ordenedMap));
+	std::sort(ordenedMap.begin(), ordenedMap.end(),
+		[](const std::pair<std::string, int> & l, const std::pair<std::string, int> & r) {
+		if (l.second != r.second)
+			return l.second < r.second;
+
+		return l.first < r.first;
+	});
 	
 	while(gameState != FullGameState::EXIT) {
 
@@ -112,7 +132,7 @@ int main() {
 			break;
 
 		case FullGameState::RANKING:
-
+			PrintRanking()
 			if (player.keyboard[(int)InputKey::ESC]) {
 				gameState = FullGameState::MAIN_MENU;
 			}
