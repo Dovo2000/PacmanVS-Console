@@ -437,10 +437,14 @@ void Blinky::MoveBlinky(Map table, Pacman player)
 				table.dataTable[posX][posY] = Cell::SPACE;
 			}
 			aux1 = aux2;
-			if (table.dataTable[posX - 1][posY] == Cell::PLAYER) {
+				posX--;
+			if (table.dataTable[posX][posY] == Cell::PLAYER && !player.powerUp) {
 				player.GetDamage(table);
 			}
-			posX--;
+			else if (table.dataTable[posX][posY] == Cell::PLAYER && player.powerUp) {
+				posX = initPosX;
+				posY = initPosY;
+			}
 			table.dataTable[posX][posY] = Cell::BLINKY;
 			break;
 		case Direction::DOWN:
@@ -452,10 +456,14 @@ void Blinky::MoveBlinky(Map table, Pacman player)
 				table.dataTable[posX][posY] = Cell::SPACE;
 			}
 			aux1 = aux2;
-			if (table.dataTable[posX + 1][posY] == Cell::PLAYER) {
+				posX++;
+			if (table.dataTable[posX][posY] == Cell::PLAYER && !player.powerUp) {
 				player.GetDamage(table);
 			}
-			posX++;
+			else if (table.dataTable[posX][posY] == Cell::PLAYER && player.powerUp) {
+				posX = initPosX;
+				posY = initPosY;
+			}
 			table.dataTable[posX][posY] = Cell::BLINKY;
 			break;
 		case Direction::RIGHT:
@@ -466,11 +474,15 @@ void Blinky::MoveBlinky(Map table, Pacman player)
 			else {
 				table.dataTable[posX][posY] = Cell::SPACE;
 			}
-			if (table.dataTable[posX][posY + 1] == Cell::PLAYER) {
+				posY++;
+			if (table.dataTable[posX][posY] == Cell::PLAYER && !player.powerUp) {
 				player.GetDamage(table);
 			}
+			else if (table.dataTable[posX][posY] == Cell::PLAYER && player.powerUp) {
+				posX = initPosX;
+				posY = initPosY;
+			}
 			aux1 = aux2;
-			posY++;
 			table.dataTable[posX][posY] = Cell::BLINKY;
 			break;
 		case Direction::LEFT:
@@ -482,10 +494,14 @@ void Blinky::MoveBlinky(Map table, Pacman player)
 				table.dataTable[posX][posY] = Cell::SPACE;
 			}
 			aux1 = aux2;
-			if (table.dataTable[posX][posY - 1] == Cell::PLAYER) {
+				posY--;
+			if (table.dataTable[posX][posY] == Cell::PLAYER && !player.powerUp) {
 				player.GetDamage(table);
 			}
-			posY--;
+			else if (table.dataTable[posX][posY] == Cell::PLAYER && player.powerUp) {
+				posX = initPosX;
+				posY = initPosY;
+			}
 			table.dataTable[posX][posY] = Cell::BLINKY;
 			break;
 		default:

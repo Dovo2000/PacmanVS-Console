@@ -55,7 +55,7 @@ void Inky::MoveInky(Map table, Pacman player)
 	if (AllowMovement(table, player)) {
 		
 		if (player.keyboard[(int)InputKey::UP_ARROW]) {
-			if (table.dataTable[posX - 1][posY] == Cell::PLAYER) {
+			if (table.dataTable[posX - 1][posY] == Cell::PLAYER && !player.powerUp) {
 				player.GetDamage(table);
 			}
 			aux2 = table.dataTable[posX - 1][posY];
@@ -71,7 +71,7 @@ void Inky::MoveInky(Map table, Pacman player)
 		}
 
 		else if (player.keyboard[(int)InputKey::DOWN_ARROW]) {
-			if (table.dataTable[posX + 1][posY] == Cell::PLAYER) {
+			if (table.dataTable[posX + 1][posY] == Cell::PLAYER && !player.powerUp) {
 				player.GetDamage(table);
 			}
 			aux2 = table.dataTable[posX + 1][posY];
@@ -87,7 +87,7 @@ void Inky::MoveInky(Map table, Pacman player)
 		}
 
 		else if (player.keyboard[(int)InputKey::LEFT_ARROW]) {
-			if (table.dataTable[posX][posY - 1] == Cell::PLAYER) {
+			if (table.dataTable[posX][posY - 1] == Cell::PLAYER && !player.powerUp) {
 				player.GetDamage(table);
 			}
 			aux2 = table.dataTable[posX][posY - 1];
@@ -103,7 +103,7 @@ void Inky::MoveInky(Map table, Pacman player)
 		}
 
 		else if (player.keyboard[(int)InputKey::RIGHT_ARROW]) {
-			if (table.dataTable[posX][posY + 1] == Cell::PLAYER) {
+			if (table.dataTable[posX][posY + 1] == Cell::PLAYER && !player.powerUp) {
 				player.GetDamage(table);
 			}
 			aux2 = table.dataTable[posX][posY + 1];
@@ -117,8 +117,12 @@ void Inky::MoveInky(Map table, Pacman player)
 			posY++;
 			table.dataTable[posX][posY] = Cell::INKY;
 		}
-		if (table.dataTable[posX][posY] == Cell::PLAYER) {
+		if (table.dataTable[posX][posY] == Cell::PLAYER && !player.powerUp) {
 			player.GetDamage(table);
+		}
+		else if (table.dataTable[posX][posY] == Cell::PLAYER && player.powerUp) {
+			posX = initPosX;
+			posY = initPosY;
 		}
 	}
 }

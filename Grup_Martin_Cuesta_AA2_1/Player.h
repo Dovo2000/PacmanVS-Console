@@ -15,8 +15,10 @@
 		int posX;
 		int posY;
 		int score = 0;
+		int colour = 14;
 		bool keyboard[(int)InputKey::COUNT];
 		InputKey keyPressed;
+		bool powerUp;
 
 		Pacman(Map table);				//Constructor en el que definiremos la posicion inicial del player y inicializamos el score a 0
 
@@ -29,6 +31,7 @@
 		void ChangeState(Map& table);
 		void GetDamage(Map table);
 		void PrintLives();
+		void GetPowerUp(Map table);
 		void Colour(int colour);
 	};
 

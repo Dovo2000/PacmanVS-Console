@@ -3,7 +3,7 @@
 
 Pacman::Pacman(Map table) {
 //aquí va la colocación del player etc
-
+	powerUp = false;
 	for (int i = 0; i < table.rows; i++) {		
 		for (int j = 0; j < table.columns; j++) {
 			if (table.dataTable[i][j] == Cell::PLAYER) {
@@ -149,6 +149,7 @@ void Pacman::MovePlayer(Map table) {
 	case InputKey::UP_ARROW:
 		posX--;
 		GetPoint(table); 
+		GetPowerUp(table);
 		table.dataTable[posX][posY] = Cell::PLAYER;
 		table.dataTable[posX+1][posY] = Cell::SPACE;
 		
@@ -157,6 +158,7 @@ void Pacman::MovePlayer(Map table) {
 	case InputKey::DOWN_ARROW:
 		posX++;
 		GetPoint(table);
+		GetPowerUp(table);
 		table.dataTable[posX][posY] = Cell::PLAYER;
 		table.dataTable[posX-1][posY] = Cell::SPACE;
 		
@@ -165,7 +167,7 @@ void Pacman::MovePlayer(Map table) {
 	case InputKey::LEFT_ARROW:
 		posY--;
 		GetPoint(table);
-		
+		GetPowerUp(table);
 		table.dataTable[posX][posY] = Cell::PLAYER;
 		table.dataTable[posX][posY + 1] = Cell::SPACE;
 			
@@ -174,7 +176,7 @@ void Pacman::MovePlayer(Map table) {
 	case InputKey::RIGHT_ARROW:
 		posY++;
 		GetPoint(table);
-	
+		GetPowerUp(table);
 		table.dataTable[posX][posY] = Cell::PLAYER;
 		table.dataTable[posX][posY-1] = Cell::SPACE;
 		
@@ -258,6 +260,13 @@ void Pacman::PrintLives()
 		break;
 	}
 	Colour(7);
+}
+
+void Pacman::GetPowerUp(Map table) {
+	if (table.dataTable[posX][posY] == Cell::POWER_UP) {
+
+		powerUp = true;
+	}
 }
 
 void Pacman::Colour(int colour) {
