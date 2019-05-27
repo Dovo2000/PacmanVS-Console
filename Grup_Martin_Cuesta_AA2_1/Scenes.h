@@ -1,4 +1,23 @@
 #pragma once
+#include <iostream>
+
+void Colour(int colour) {
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colour);
+}
+
+void OrderRank(std::vector<std::pair<std::string, int>> ordenedMap, std::map<std::string, int> rank) {
+
+	std::copy(rank.begin(), rank.end(), std::back_inserter<std::vector<std::pair<std::string, int>>>(ordenedMap));
+	std::sort(ordenedMap.begin(), ordenedMap.end(),
+		[](const std::pair<std::string, int> & l, const std::pair<std::string, int> & r) {
+		if (l.second != r.second)
+			return l.second < r.second;
+
+		return l.first < r.first;
+	});
+
+}
 
 std::map<std::string, int> LoadRanking() {
 
@@ -17,14 +36,19 @@ std::map<std::string, int> LoadRanking() {
 	return rank;
 }
 
-void SaveRanking(std::string name, int _score, std::vector<std::pair<std::string, int>> _rank) {
+void SaveRanking(std::string name, int _score, std::map<std::string, int> _rank, std::vector<std::pair<std::string, int>> _orderedMap) {
+
+	_rank.insert(std::pair<std::string, int>(name, _score));
+
+	OrderRank(_orderedMap, _rank);
 
 	std::ofstream ranking("Ranking.txt");
 
+
 	if (ranking.is_open()) {
-		for (int i = 0; i < 5; i++)
+		for (std::vector<std::pair<std::string,int>>::iterator it = _orderedMap.begin(); it != _orderedMap.end(); it++)
 		{
-			ranking << _rank[i].first << " " << _rank[i].second;
+			ranking << it->first << " " << it->second;
 		}
 	}
 
@@ -45,7 +69,3 @@ void PrintRanking(std::vector<std::pair<std::string, int>> _rank) {
 	}
 }
 
-void Colour(int colour) {
-
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colour);
-}

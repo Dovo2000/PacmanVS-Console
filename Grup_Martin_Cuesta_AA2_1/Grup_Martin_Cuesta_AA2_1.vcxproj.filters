@@ -59,5 +59,8 @@
     <ClInclude Include="Scenes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Splash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

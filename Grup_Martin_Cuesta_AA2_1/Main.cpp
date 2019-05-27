@@ -9,6 +9,7 @@
 #include "Inky.h"
 #include "Clyde.h"
 #include "Blinky.h"
+#include "Splash.h"
 
 
 int main() {
@@ -18,20 +19,14 @@ int main() {
 	Inky inky(board);
 	Clyde clyde(board);
 	Blinky blinky(board);
-	FullGameState gameState = FullGameState::MAIN_MENU;
+	FullGameState gameState = FullGameState::SLASH_SCREEN;
 	std::map<std::string, int> rank;
 	
 	rank = LoadRanking();
 
-	std::vector<std::pair<std::string, int>> ordenedMap;
-	std::copy(rank.begin(), rank.end(), std::back_inserter<std::vector<std::pair<std::string, int>>>(ordenedMap));
-	std::sort(ordenedMap.begin(), ordenedMap.end(),
-		[](const std::pair<std::string, int> & l, const std::pair<std::string, int> & r) {
-		if (l.second != r.second)
-			return l.second < r.second;
+	std::vector<std::pair<std::string, int>> orderedMap;
 
-		return l.first < r.first;
-	});
+	OrderRank(orderedMap, rank);
 	
 	while(gameState != FullGameState::EXIT) {
 
@@ -42,6 +37,10 @@ int main() {
 		switch (gameState)
 		{
 		case FullGameState::SLASH_SCREEN:
+			ShowSplash();
+			Sleep(3000);
+
+			gameState = FullGameState::MAIN_MENU;
 
 			break;
 
@@ -123,7 +122,13 @@ int main() {
 				break;
 			}
 
-			if (board.state == GameState::GAMEOVER) {		
+			if (board.state == GameState::GAMEOVER) {
+				std::string name;
+				std::cout << std::endl << "Game Over. Write your name here:" << std::endl;
+				std::cin >> name;
+
+				SaveRanking(name, player.score, rank, orderedMap);
+
 				gameState = FullGameState::RANKING;
 			}
 			else if (player.keyboard[(int)InputKey::ESC]) {
@@ -132,7 +137,10 @@ int main() {
 			break;
 
 		case FullGameState::RANKING:
-			PrintRanking()
+
+			
+			PrintRanking(orderedMap);		
+
 			if (player.keyboard[(int)InputKey::ESC]) {
 				gameState = FullGameState::MAIN_MENU;
 			}
