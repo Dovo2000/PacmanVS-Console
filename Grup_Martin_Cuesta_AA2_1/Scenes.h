@@ -67,7 +67,8 @@ void PrintRanking(std::vector<std::pair<std::string, int>> _rank) {
 		else {
 			Colour(11);
 		}
-		std::cout << i + 1 << "- " << _rank[i].first << " => " << _rank[i].second << std::endl;
+		std::cout << i + 1 << "- ";
+		std::cout << _rank[i].first << " => " << _rank[i].second << std::endl;
 		it++;
 	}
 }
