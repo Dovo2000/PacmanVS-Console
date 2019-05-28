@@ -24,7 +24,7 @@ int main() {
 	
 	rank = LoadRanking();
 
-	std::vector<Usuario> orderedMap;
+	std::priority_queue<Usuario> orderedMap;
 	
 	while(gameState != FullGameState::EXIT) {
 
@@ -139,7 +139,7 @@ int main() {
 			board.Colour(224);
 			std::cout << "*-*-*-RANKING-*-*-*" << std::endl;
 			board.Colour(0);
-			PrintRanking(rank);		
+			PrintRanking(orderedMap, rank);		
 
 			if (player.keyboard[(int)InputKey::ESC]) {
 				gameState = FullGameState::MAIN_MENU;

@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <queue>
 
 void Colour(int colour) {
 
@@ -12,15 +13,24 @@ struct Usuario
 
 	std::string name;
 	int score;
-	bool operator <(Usuario u1) {	
-			return score < u1.score;
+	friend bool operator <(Usuario u, Usuario u1) {	
+			return u.score < u1.score;
 	}
 };
 
 
-void OrderRank(std::vector<Usuario> ordenedMap, std::map<std::string, int> rank) {
 
-	ordenedMap.insert(ordenedMap.begin(), rank.begin(), rank.end());
+void OrderRank(std::priority_queue <Usuario> ordenedMap, std::map<std::string, int> rank) {
+
+	std::map<std::string, int>::iterator it = rank.begin();
+	Usuario tmp;
+
+	while (it != rank.end())
+	{
+		tmp.name = it->first;
+		tmp.score = it->second;
+		ordenedMap.push(tmp);
+	}
 	
 
 }
@@ -60,10 +70,11 @@ void SaveRanking(std::string name, int _score, std::map<std::string, int> _rank)
 	ranking.close();
 }
 
-void PrintRanking(std::map<std::string, int> _rank) {
-	std::map<std::string, int>::iterator it;
-	it = _rank.begin();
-	for (int i = 0; i < 5 && it != _rank.end(); i++) {
+void PrintRanking(std::priority_queue <Usuario> ordenedMap, std::map<std::string, int> rank) {
+	
+	OrderRank(ordenedMap, rank);
+	
+	for (int i = 0; i < 5; i++) {
 		if (i == 0) {
 			Colour(10);
 		}
@@ -74,8 +85,8 @@ void PrintRanking(std::map<std::string, int> _rank) {
 			Colour(11);
 		}
 		std::cout << i + 1 << "- ";
-		std::cout << it->first << " => " << it->second << std::endl;
-		it++;
+		std::cout << ordenedMap.top().name << " => " << ordenedMap.top().score << std::endl;
+		ordenedMap.pop();
 	}
 }
 
