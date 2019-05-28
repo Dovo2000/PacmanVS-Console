@@ -55,8 +55,12 @@ std::map<std::string, int> LoadRanking() {
 }
 
 void SaveRanking(std::string name, int _score, std::map<std::string, int> _rank) {
-
-	_rank.insert(std::pair<std::string, int>(name, _score));
+	
+	if (_rank[name] < _score){
+		_rank[name] = _score;
+	}
+	else
+		_rank.insert(std::pair<std::string, int>(name, _score));
 
 	std::ofstream ranking("Ranking.txt");
 
