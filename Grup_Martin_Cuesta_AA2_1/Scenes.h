@@ -20,7 +20,7 @@ struct Usuario
 
 
 
-void OrderRank(std::priority_queue <Usuario> ordenedMap, std::map<std::string, int> rank) {
+void OrderRank(std::priority_queue <Usuario> &ordenedMap, std::map<std::string, int> rank) {
 
 	std::map<std::string, int>::iterator it = rank.begin();
 	Usuario tmp;
@@ -30,6 +30,7 @@ void OrderRank(std::priority_queue <Usuario> ordenedMap, std::map<std::string, i
 		tmp.name = it->first;
 		tmp.score = it->second;
 		ordenedMap.push(tmp);
+		it++;
 	}
 	
 
@@ -63,30 +64,31 @@ void SaveRanking(std::string name, int _score, std::map<std::string, int> _rank)
 	if (ranking.is_open()) {
 		for (std::map<std::string, int>::iterator it = _rank.begin(); it != _rank.end(); it++)
 		{
-			ranking << it->first;
-			ranking << it->second;
+			ranking << it->first << std::endl;
+			ranking << it->second << std::endl;
 		}
 	}
 	ranking.close();
 }
 
 void PrintRanking(std::priority_queue <Usuario> ordenedMap, std::map<std::string, int> rank) {
-	
+	rank = LoadRanking();
 	OrderRank(ordenedMap, rank);
-	
-	for (int i = 0; i < 5; i++) {
-		if (i == 0) {
-			Colour(10);
+	if (!ordenedMap.empty()) {
+		for (int i = 0; i < 5 && !ordenedMap.empty(); i++) {
+			if (i == 0) {
+				Colour(10);
+			}
+			else if (i == 4) {
+				Colour(12);
+			}
+			else {
+				Colour(11);
+			}
+			std::cout << i + 1 << "- ";
+			std::cout << ordenedMap.top().name << "         " << ordenedMap.top().score << std::endl;
+			ordenedMap.pop();
 		}
-		else if (i == 4) {
-			Colour(12);
-		}
-		else {
-			Colour(11);
-		}
-		std::cout << i + 1 << "- ";
-		std::cout << ordenedMap.top().name << " => " << ordenedMap.top().score << std::endl;
-		ordenedMap.pop();
 	}
 }
 

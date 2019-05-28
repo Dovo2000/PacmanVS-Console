@@ -135,7 +135,7 @@ int main() {
 			break;
 
 		case FullGameState::RANKING:
-
+			
 			board.Colour(224);
 			std::cout << "*-*-*-RANKING-*-*-*" << std::endl;
 			board.Colour(0);
