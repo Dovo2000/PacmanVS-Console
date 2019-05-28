@@ -24,9 +24,7 @@ int main() {
 	
 	rank = LoadRanking();
 
-	std::vector<std::pair<std::string, int>> orderedMap;
-
-	OrderRank(orderedMap, rank);
+	std::vector<Usuario> orderedMap;
 	
 	while(gameState != FullGameState::EXIT) {
 
@@ -127,7 +125,7 @@ int main() {
 				std::cout << std::endl << "Game Over. Write your name here:" << std::endl;
 				std::cin >> name;
 
-				SaveRanking(name, player.score, rank, orderedMap);
+				SaveRanking(name, player.score, rank);
 
 				gameState = FullGameState::RANKING;
 			}
@@ -141,7 +139,7 @@ int main() {
 			board.Colour(224);
 			std::cout << "*-*-*-RANKING-*-*-*" << std::endl;
 			board.Colour(0);
-			PrintRanking(orderedMap);		
+			PrintRanking(rank);		
 
 			if (player.keyboard[(int)InputKey::ESC]) {
 				gameState = FullGameState::MAIN_MENU;

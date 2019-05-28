@@ -6,16 +6,22 @@ void Colour(int colour) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colour);
 }
 
-void OrderRank(std::vector<std::pair<std::string, int>> ordenedMap, std::map<std::string, int> rank) {
+
+struct Usuario
+{
+
+	std::string name;
+	int score;
+	bool operator <(Usuario u1) {	
+			return score < u1.score;
+	}
+};
+
+
+void OrderRank(std::vector<Usuario> ordenedMap, std::map<std::string, int> rank) {
 
 	ordenedMap.insert(ordenedMap.begin(), rank.begin(), rank.end());
-	std::sort(ordenedMap.begin(), ordenedMap.end(),
-		[](const std::pair<std::string, int> & l, const std::pair<std::string, int> & r) {
-		if (l.second != r.second)
-			return l.second < r.second;
-
-		return l.first < r.first;
-	});
+	
 
 }
 
@@ -28,7 +34,8 @@ std::map<std::string, int> LoadRanking() {
 
 	if (ranking.is_open()) {
 		while (!ranking.eof()) {
-			ranking >> name >> score;
+			ranking >> name;
+			ranking >> score;
 			rank.insert(std::pair<std::string, int>(name, score));
 		}
 	}
@@ -36,26 +43,25 @@ std::map<std::string, int> LoadRanking() {
 	return rank;
 }
 
-void SaveRanking(std::string name, int _score, std::map<std::string, int> _rank, std::vector<std::pair<std::string, int>> _orderedMap) {
+void SaveRanking(std::string name, int _score, std::map<std::string, int> _rank) {
 
 	_rank.insert(std::pair<std::string, int>(name, _score));
-
-	OrderRank(_orderedMap, _rank);
 
 	std::ofstream ranking("Ranking.txt");
 
 
 	if (ranking.is_open()) {
-		for (std::vector<std::pair<std::string,int>>::iterator it = _orderedMap.begin(); it != _orderedMap.end(); it++)
+		for (std::map<std::string, int>::iterator it = _rank.begin(); it != _rank.end(); it++)
 		{
-			ranking << it->first << " " << it->second;
+			ranking << it->first;
+			ranking << it->second;
 		}
 	}
 	ranking.close();
 }
 
-void PrintRanking(std::vector<std::pair<std::string, int>> _rank) {
-	std::vector<std::pair<std::string, int>>::iterator it;
+void PrintRanking(std::map<std::string, int> _rank) {
+	std::map<std::string, int>::iterator it;
 	it = _rank.begin();
 	for (int i = 0; i < 5 && it != _rank.end(); i++) {
 		if (i == 0) {
@@ -68,7 +74,7 @@ void PrintRanking(std::vector<std::pair<std::string, int>> _rank) {
 			Colour(11);
 		}
 		std::cout << i + 1 << "- ";
-		std::cout << _rank[i].first << " => " << _rank[i].second << std::endl;
+		std::cout << it->first << " => " << it->second << std::endl;
 		it++;
 	}
 }
