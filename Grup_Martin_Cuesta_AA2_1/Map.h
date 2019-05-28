@@ -13,6 +13,7 @@
 		Cell **dataTable;
 		int pointCounter = 0;
 		GameState state;
+		bool powered = false;
 
 		void PrintMap();
 		void PrintState();

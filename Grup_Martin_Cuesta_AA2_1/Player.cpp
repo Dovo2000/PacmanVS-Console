@@ -51,7 +51,7 @@ bool Pacman::AllowMovement(Map table) {
 	{
 		if (keyboard[(int)InputKey::UP_ARROW]){
 			keyPressed = InputKey::UP_ARROW;
-			if (table.dataTable[posX - 1][posY] == Cell::INKY || table.dataTable[posX - 1][posY] == Cell::CLYDE || table.dataTable[posX - 1][posY] == Cell::BLINKY) {
+			if (table.dataTable[posX - 1][posY] == Cell::INKY || table.dataTable[posX - 1][posY] == Cell::CLYDE || table.dataTable[posX - 1][posY] == Cell::BLINKY && !powerUp) {
 				if (table.dataTable[posX - 1][posY] == Cell::INKY) {
 					table.dataTable[posX - 1][posY] = Cell::INKY;
 				}
@@ -70,7 +70,7 @@ bool Pacman::AllowMovement(Map table) {
 		}
 		else if (keyboard[(int)InputKey::DOWN_ARROW]) {
 			keyPressed = InputKey::DOWN_ARROW;
-			if (table.dataTable[posX + 1][posY] == Cell::INKY || table.dataTable[posX + 1][posY] == Cell::CLYDE || table.dataTable[posX + 1][posY] == Cell::BLINKY) {
+			if (table.dataTable[posX + 1][posY] == Cell::INKY || table.dataTable[posX + 1][posY] == Cell::CLYDE || table.dataTable[posX + 1][posY] == Cell::BLINKY && !powerUp) {
 				if (table.dataTable[posX + 1][posY] == Cell::INKY) {
 					table.dataTable[posX + 1][posY] = Cell::INKY;
 				}
@@ -93,7 +93,7 @@ bool Pacman::AllowMovement(Map table) {
 		}
 		else if (keyboard[(int)InputKey::RIGHT_ARROW]) {
 			keyPressed = InputKey::RIGHT_ARROW;
-			if (table.dataTable[posX][posY + 1] == Cell::INKY || table.dataTable[posX][posY + 1] == Cell::CLYDE || table.dataTable[posX][posY + 1] == Cell::BLINKY) {
+			if (table.dataTable[posX][posY + 1] == Cell::INKY || table.dataTable[posX][posY + 1] == Cell::CLYDE || table.dataTable[posX][posY + 1] == Cell::BLINKY && !powerUp) {
 				if (table.dataTable[posX][posY + 1] == Cell::INKY) {
 					table.dataTable[posX][posY + 1] = Cell::INKY;
 				}
@@ -113,7 +113,7 @@ bool Pacman::AllowMovement(Map table) {
 		}
 		else if (keyboard[(int)InputKey::LEFT_ARROW]) {
 			keyPressed = InputKey::LEFT_ARROW;
-			if (table.dataTable[posX][posY - 1] == Cell::INKY || table.dataTable[posX][posY - 1] == Cell::CLYDE || table.dataTable[posX][posY - 1] == Cell::BLINKY) {
+			if (table.dataTable[posX][posY - 1] == Cell::INKY || table.dataTable[posX][posY - 1] == Cell::CLYDE || table.dataTable[posX][posY - 1] == Cell::BLINKY && !powerUp) {
 				if (table.dataTable[posX][posY - 1] == Cell::INKY) {
 					table.dataTable[posX][posY - 1] = Cell::INKY;
 				}
@@ -142,7 +142,7 @@ bool Pacman::AllowMovement(Map table) {
 	return false;
 }
 
-void Pacman::MovePlayer(Map table) {
+void Pacman::MovePlayer(Map &table) {
 	
 	switch (keyPressed)
 	{
@@ -186,7 +186,12 @@ void Pacman::MovePlayer(Map table) {
 	default:
 		break;
 	}
-
+	if (powerUp) {
+		if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - initTime) >= std::chrono::seconds(7)) {
+			powerUp = false;
+			table.powered = false;
+		}
+	}
 }
 
 void Pacman::TpPlayer(Map table) {
@@ -262,9 +267,10 @@ void Pacman::PrintLives()
 	Colour(7);
 }
 
-void Pacman::GetPowerUp(Map table) {
+void Pacman::GetPowerUp(Map &table) {
 	if (table.dataTable[posX][posY] == Cell::POWER_UP) {
-
+		initTime = std::chrono::system_clock::now();
+		table.powered = true;
 		powerUp = true;
 	}
 }

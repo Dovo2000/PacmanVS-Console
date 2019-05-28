@@ -1,5 +1,6 @@
 #pragma once
 #include "Map.h"
+#include <chrono>
 
 
 	class Pacman {
@@ -7,9 +8,10 @@
 
 		int initPosX;
 		int initPosY;
-
+		
 	public:
 
+		std::chrono::system_clock::time_point initTime;
 		Cell player;
 		int lives = 3;
 		int posX;
@@ -25,13 +27,13 @@
 		void GetPoint(Map table);		//Bool para saber si el jugador se encuentra en una posición con un punto o no
 		void PrintPoints();
 		void Mapping();
-		bool AllowMovement(Map table);	//Comprueba si el jugador puede moverse en una dirección
-		void MovePlayer(Map table);		//Usando la función de Windows.h GetAsyncKeyState(VirtualKey); VK_RIGHT, VK_LEFT, VK_UP, VK_DOWN
+		bool AllowMovement(Map table);		//Comprueba si el jugador puede moverse en una dirección
+		void MovePlayer(Map &table);		//Usando la función de Windows.h GetAsyncKeyState(VirtualKey); VK_RIGHT, VK_LEFT, VK_UP, VK_DOWN
 		void TpPlayer(Map table);
 		void ChangeState(Map& table);
 		void GetDamage(Map table);
 		void PrintLives();
-		void GetPowerUp(Map table);
+		void GetPowerUp(Map &table);
 		void Colour(int colour);
 	};
 

@@ -59,7 +59,6 @@ Map::Map() {
 
 void Map::PrintMap() {
 
-	
 	pointCounter = 0;
 
 	for (int i = 0; i < rows; i++)
@@ -74,7 +73,10 @@ void Map::PrintMap() {
 				Colour(7);
 				break;
 			case Cell::PLAYER:
-				Colour(14);
+				if (!powered)
+					Colour(14);
+				else
+					Colour(10);
 				std::cout << " " << (char)dataTable[i][j];
 				Colour(7);
 				break;
