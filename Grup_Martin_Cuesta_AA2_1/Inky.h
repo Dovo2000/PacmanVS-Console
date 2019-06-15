@@ -14,9 +14,9 @@ public:
 
 
 	Inky(Map table);
-	bool AllowMovement(Map table, Pacman player);
-	void MoveInky(Map table, Pacman player);
-	void TpInky(Map table, Pacman player);
+	bool AllowMovement(Map table, Pacman player, bool keyboard[]);
+	void MoveInky(Map table, Pacman player, bool keyboard[]);
+	void TpInky(Map table, Pacman player, bool keyboard[]);
 
 };
 

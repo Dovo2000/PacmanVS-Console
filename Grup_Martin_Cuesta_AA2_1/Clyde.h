@@ -15,9 +15,9 @@ public:
 
 
 	Clyde(Map table);
-	bool AllowMovement(Map table, Pacman player);
-	void MoveClyde(Map table, Pacman player);
-	void TpClyde(Map table, Pacman player);
+	bool AllowMovement(Map table, Pacman player, bool keyboard[]);
+	void MoveClyde(Map table, Pacman player, bool keyboard[]);
+	void TpClyde(Map table, Pacman player, bool keyboard[]);
 
 };
 

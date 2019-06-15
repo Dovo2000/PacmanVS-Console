@@ -11,9 +11,24 @@
 #include "Blinky.h"
 #include "Splash.h"
 
+void Mapping(bool keyboard[])
+{
+	
+	keyboard[(int)InputKey::UP_ARROW] = GetAsyncKeyState(VK_UP);
+	keyboard[(int)InputKey::DOWN_ARROW] = GetAsyncKeyState(VK_DOWN);
+	keyboard[(int)InputKey::LEFT_ARROW] = GetAsyncKeyState(VK_LEFT);
+	keyboard[(int)InputKey::RIGHT_ARROW] = GetAsyncKeyState(VK_RIGHT);
+	keyboard[(int)InputKey::ESC] = GetAsyncKeyState(VK_ESCAPE);
+	keyboard[(int)InputKey::P] = GetAsyncKeyState(0x50) || GetAsyncKeyState(0x70);
+	keyboard[(int)InputKey::SPACE] = GetAsyncKeyState(VK_SPACE);
+	keyboard[(int)InputKey::PLAY] = GetAsyncKeyState(0x31);
+	keyboard[(int)InputKey::RANKING] = GetAsyncKeyState(0x32);
+	keyboard[(int)InputKey::EXIT_GAME] = GetAsyncKeyState(0x30);
+}
 
 int main() {
 	srand(time(NULL));
+	bool keyboard[(int)InputKey::COUNT];
 	Map board;
 	Pacman player(board);
 	Inky inky(board);
@@ -29,8 +44,8 @@ int main() {
 	while(gameState != FullGameState::EXIT) {
 
 	// Mapeado del teclado
-		player.Mapping();
-		player.ChangeState(board);
+		Mapping(keyboard);
+		player.ChangeState(board, keyboard);
 
 		switch (gameState)
 		{
@@ -56,7 +71,7 @@ int main() {
 			std::cout << "0 - Exit Game" << std::endl;
 			std::cout << std::endl;
 
-			if (player.keyboard[(int)InputKey::PLAY]) {
+			if (keyboard[(int)InputKey::PLAY]) {
 				board.state = GameState::INIT;
 				Map tmp;
 				board = tmp;
@@ -70,10 +85,10 @@ int main() {
 				blinky = tmpBlinky;
 				gameState = FullGameState::GAME;
 			}
-			else if (player.keyboard[(int)InputKey::RANKING]) {
+			else if (keyboard[(int)InputKey::RANKING]) {
 				gameState = FullGameState::RANKING;
 			}
-			else if (player.keyboard[(int)InputKey::ESC] || player.keyboard[(int)InputKey::EXIT_GAME]) {
+			else if (keyboard[(int)InputKey::ESC] || keyboard[(int)InputKey::EXIT_GAME]) {
 				gameState = FullGameState::EXIT;
 			}
 			break;
@@ -92,11 +107,11 @@ int main() {
 		// Update				
 				blinky.MoveBlinky(board, player);
 								
-				inky.MoveInky(board, player);
+				inky.MoveInky(board, player, keyboard);
 								
-				clyde.MoveClyde(board, player);
+				clyde.MoveClyde(board, player, keyboard);
 				
-				if(player.AllowMovement(board))
+				if(player.AllowMovement(board, keyboard))
 					player.MovePlayer(board);				
 		// Print		
 				board.PrintState();
@@ -129,7 +144,7 @@ int main() {
 
 				gameState = FullGameState::RANKING;
 			}
-			else if (player.keyboard[(int)InputKey::ESC]) {
+			else if (keyboard[(int)InputKey::ESC]) {
 				gameState = FullGameState::MAIN_MENU;
 			}
 			break;
@@ -141,7 +156,7 @@ int main() {
 			board.Colour(0);
 			PrintRanking(orderedMap, rank);		
 
-			if (player.keyboard[(int)InputKey::ESC]) {
+			if (keyboard[(int)InputKey::ESC]) {
 				gameState = FullGameState::MAIN_MENU;
 			}
 

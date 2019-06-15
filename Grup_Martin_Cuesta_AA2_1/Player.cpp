@@ -31,21 +31,7 @@ void Pacman::PrintPoints() {
 	std::cout << "Score: " << score;
 }
 
-void Pacman::Mapping()
-{
-	keyboard[(int)InputKey::UP_ARROW] = GetAsyncKeyState(VK_UP);
-	keyboard[(int)InputKey::DOWN_ARROW] = GetAsyncKeyState(VK_DOWN);
-	keyboard[(int)InputKey::LEFT_ARROW] = GetAsyncKeyState(VK_LEFT);
-	keyboard[(int)InputKey::RIGHT_ARROW] = GetAsyncKeyState(VK_RIGHT);
-	keyboard[(int)InputKey::ESC] = GetAsyncKeyState(VK_ESCAPE);
-	keyboard[(int)InputKey::P] = GetAsyncKeyState(0x50) || GetAsyncKeyState(0x70);
-	keyboard[(int)InputKey::SPACE] = GetAsyncKeyState(VK_SPACE);
-	keyboard[(int)InputKey::PLAY] = GetAsyncKeyState(0x31);
-	keyboard[(int)InputKey::RANKING] = GetAsyncKeyState(0x32);
-	keyboard[(int)InputKey::EXIT_GAME] = GetAsyncKeyState(0x30);
-}
-
-bool Pacman::AllowMovement(Map table) {
+bool Pacman::AllowMovement(Map table, bool keyboard[]) {
 	
 	if (posX >= 1 &&  posY >= 0 && posX < table.rows-1 && posY <= table.columns-1)
 	{
@@ -87,7 +73,7 @@ bool Pacman::AllowMovement(Map table) {
 				if (posX != table.rows - 1)
 					return table.dataTable[posX + 1][posY] != (Cell)'X';
 				else
-					TpPlayer(table);
+					TpPlayer(table, keyboard);
 			}
 
 		}
@@ -135,7 +121,7 @@ bool Pacman::AllowMovement(Map table) {
 	}
 	else {
 
-		TpPlayer(table);
+		TpPlayer(table, keyboard);
 		return true;
 
 	}
@@ -169,7 +155,8 @@ void Pacman::MovePlayer(Map &table) {
 		GetPoint(table);
 		GetPowerUp(table);
 		table.dataTable[posX][posY] = Cell::PLAYER;
-		table.dataTable[posX][posY + 1] = Cell::SPACE;
+		if(table.dataTable[posX][posY + 1] != (Cell)'X')
+			table.dataTable[posX][posY + 1] = Cell::SPACE;
 			
 		break;
 
@@ -178,7 +165,8 @@ void Pacman::MovePlayer(Map &table) {
 		GetPoint(table);
 		GetPowerUp(table);
 		table.dataTable[posX][posY] = Cell::PLAYER;
-		table.dataTable[posX][posY-1] = Cell::SPACE;
+		if(table.dataTable[posX][posY - 1] != (Cell)'X')
+			table.dataTable[posX][posY-1] = Cell::SPACE;
 		
 		
 		break;
@@ -194,17 +182,18 @@ void Pacman::MovePlayer(Map &table) {
 	}
 }
 
-void Pacman::TpPlayer(Map table) {
+void Pacman::TpPlayer(Map table, bool keyboard[]) {
 	if (keyboard[(int)InputKey::LEFT_ARROW]) {
-
+		keyPressed = InputKey::LEFT_ARROW;
 		posY = table.columns-1;
-		table.dataTable[posX][0] = Cell::SPACE;
+		//table.dataTable[posX-1][0] = Cell::SPACE;
 		table.dataTable[posX][posY] = Cell::PLAYER;
 
 	}
 	else if (keyboard[(int)InputKey::RIGHT_ARROW]) {
+		keyPressed = InputKey::RIGHT_ARROW;
 		posY = 0;
-		table.dataTable[posX][table.columns-1] = Cell::SPACE;
+		//table.dataTable[posX-1][table.columns - 1] = Cell::SPACE;
 		table.dataTable[posX][posY] = Cell::PLAYER;
 	}
 	else if (keyboard[(int)InputKey::UP_ARROW]) {
@@ -221,7 +210,7 @@ void Pacman::TpPlayer(Map table) {
 
 }
 
-void Pacman::ChangeState(Map& table){
+void Pacman::ChangeState(Map& table, bool keyboard[]){
 	if (keyboard[(int)InputKey::P]) {
 		 table.state = GameState::PAUSE;
 	}

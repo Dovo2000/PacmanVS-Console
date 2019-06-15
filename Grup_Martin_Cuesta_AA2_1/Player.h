@@ -18,7 +18,6 @@
 		int posY;
 		int score = 0;
 		int colour = 14;
-		bool keyboard[(int)InputKey::COUNT];
 		InputKey keyPressed;
 		bool powerUp;
 
@@ -26,11 +25,10 @@
 
 		void GetPoint(Map table);		//Bool para saber si el jugador se encuentra en una posición con un punto o no
 		void PrintPoints();
-		void Mapping();
-		bool AllowMovement(Map table);		//Comprueba si el jugador puede moverse en una dirección
+		bool AllowMovement(Map table, bool keyboard[]);		//Comprueba si el jugador puede moverse en una dirección
 		void MovePlayer(Map &table);		//Usando la función de Windows.h GetAsyncKeyState(VirtualKey); VK_RIGHT, VK_LEFT, VK_UP, VK_DOWN
-		void TpPlayer(Map table);
-		void ChangeState(Map& table);
+		void TpPlayer(Map table, bool keyboard[]);
+		void ChangeState(Map& table, bool keyboard[]);
 		void GetDamage(Map table);
 		void PrintLives();
 		void GetPowerUp(Map &table);

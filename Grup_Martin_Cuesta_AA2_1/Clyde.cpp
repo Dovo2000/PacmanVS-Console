@@ -18,44 +18,44 @@ Clyde::Clyde(Map table)
 	}
 }
 
-bool Clyde::AllowMovement(Map table, Pacman player)
+bool Clyde::AllowMovement(Map table, Pacman player, bool keyboard[])
 {
 	if (posX >= 0 && posY >= 0 && posX <= table.rows - 1 && posY <= table.columns - 1) {
 
-		if (player.keyboard[(int)InputKey::DOWN_ARROW]) {
+		if (keyboard[(int)InputKey::DOWN_ARROW]) {
 			if (posX == 0)
-				TpClyde(table, player);
+				TpClyde(table, player, keyboard);
 			else
 				return table.dataTable[posX - 1][posY] != (Cell)'X';
 		}
-		else if (player.keyboard[(int)InputKey::UP_ARROW]) {
+		else if (keyboard[(int)InputKey::UP_ARROW]) {
 			if (posX != table.rows - 1)
 				return table.dataTable[posX + 1][posY] != (Cell)'X';
 			else
-				TpClyde(table, player);
+				TpClyde(table, player, keyboard);
 		}
-		else if (player.keyboard[(int)InputKey::LEFT_ARROW]) {
+		else if (keyboard[(int)InputKey::LEFT_ARROW]) {
 			return table.dataTable[posX][posY + 1] != (Cell)'X';
 		}
-		else if (player.keyboard[(int)InputKey::RIGHT_ARROW]) {
+		else if (keyboard[(int)InputKey::RIGHT_ARROW]) {
 			return table.dataTable[posX][posY - 1] != (Cell)'X';
 		}
 	}
 	else {
 	
-		TpClyde(table, player);
+		TpClyde(table, player, keyboard);
 		return false;
 		
 	}
 	return false;
 }
 
-void Clyde::MoveClyde(Map table, Pacman player)
+void Clyde::MoveClyde(Map table, Pacman player, bool keyboard[])
 {
 	Cell aux2;
-	if (AllowMovement(table, player)) {		
+	if (AllowMovement(table, player, keyboard)) {		
 		
-		if (player.keyboard[(int)InputKey::DOWN_ARROW]) {
+		if (keyboard[(int)InputKey::DOWN_ARROW]) {
 			aux2 = table.dataTable[posX - 1][posY];
 			if (aux1 != Cell::PLAYER && aux1 != Cell::BLINKY && aux1 != Cell::INKY && aux1 != Cell::CLYDE) {
 				table.dataTable[posX][posY] = aux1;
@@ -75,7 +75,7 @@ void Clyde::MoveClyde(Map table, Pacman player)
 			aux1 = aux2;
 			table.dataTable[posX][posY] = Cell::CLYDE;
 		}
-		else if (player.keyboard[(int)InputKey::UP_ARROW]) {
+		else if (keyboard[(int)InputKey::UP_ARROW]) {
 			aux2 = table.dataTable[posX + 1][posY];
 			if(aux1 != Cell::PLAYER && aux1 != Cell::BLINKY && aux1 != Cell::INKY && aux1 != Cell::CLYDE){
 			table.dataTable[posX][posY] = aux1;
@@ -95,7 +95,7 @@ void Clyde::MoveClyde(Map table, Pacman player)
 			table.dataTable[posX][posY] = Cell::CLYDE;
 		}
 
-		else if (player.keyboard[(int)InputKey::RIGHT_ARROW]) {
+		else if (keyboard[(int)InputKey::RIGHT_ARROW]) {
 			aux2 = table.dataTable[posX][posY - 1];
 			if (aux1 != Cell::PLAYER && aux1 != Cell::BLINKY && aux1 != Cell::INKY && aux1 != Cell::CLYDE) {
 				table.dataTable[posX][posY] = aux1;
@@ -115,7 +115,7 @@ void Clyde::MoveClyde(Map table, Pacman player)
 			table.dataTable[posX][posY] = Cell::CLYDE;
 		}
 
-		else if (player.keyboard[(int)InputKey::LEFT_ARROW]) {
+		else if (keyboard[(int)InputKey::LEFT_ARROW]) {
 			aux2 = table.dataTable[posX][posY + 1];
 			if (aux1 != Cell::PLAYER && aux1 != Cell::BLINKY && aux1 != Cell::INKY && aux1 != Cell::CLYDE) {
 				table.dataTable[posX][posY] = aux1;
@@ -144,11 +144,11 @@ void Clyde::MoveClyde(Map table, Pacman player)
 	}
 }
 
-void Clyde::TpClyde(Map table, Pacman player)
+void Clyde::TpClyde(Map table, Pacman player, bool keyboard[])
 {
 	Cell aux2;
 	
-	if (player.keyboard[(int)InputKey::RIGHT_ARROW]) {
+	if (keyboard[(int)InputKey::RIGHT_ARROW]) {
 		aux2 = table.dataTable[posX][table.columns - 1];
 		table.dataTable[posX][posY] = aux1;
 		aux1 = aux2;
@@ -156,7 +156,7 @@ void Clyde::TpClyde(Map table, Pacman player)
 		table.dataTable[posX][0] = aux2;
 		table.dataTable[posX][posY] = Cell::CLYDE;
 	}
-	else if (player.keyboard[(int)InputKey::LEFT_ARROW]) {
+	else if (keyboard[(int)InputKey::LEFT_ARROW]) {
 		aux2 = table.dataTable[posX][0];
 		table.dataTable[posX][posY] = aux1;
 		aux1 = aux2;
@@ -164,7 +164,7 @@ void Clyde::TpClyde(Map table, Pacman player)
 		table.dataTable[posX][table.columns - 1] = aux2;
 		table.dataTable[posX][posY] = Cell::CLYDE;
 	}
-	else if (player.keyboard[(int)InputKey::DOWN_ARROW]) {
+	else if (keyboard[(int)InputKey::DOWN_ARROW]) {
 		aux2 = table.dataTable[table.rows - 1][posY];
 		table.dataTable[posX][posY] = aux1;
 		aux1 = aux2;
@@ -172,7 +172,7 @@ void Clyde::TpClyde(Map table, Pacman player)
 		table.dataTable[0][posY] = aux2;
 		table.dataTable[posX][posY] = Cell::CLYDE;
 	}
-	else if (player.keyboard[(int)InputKey::UP_ARROW]) {
+	else if (keyboard[(int)InputKey::UP_ARROW]) {
 		aux2 = table.dataTable[0][posY];
 		table.dataTable[posX][posY] = aux1;
 		aux1 = aux2;
